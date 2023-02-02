@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorrorFlux.Common", "Horror
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorrorFlux.Membership.Database", "HorrorFlux.Membership.Database\HorrorFlux.Membership.Database.csproj", "{E48CA854-332F-49C0-A9B1-F737D02BDE05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorrorFlux.Membership.API", "HorrorFlux.Membership.API\HorrorFlux.Membership.API.csproj", "{74999AD1-072E-4DBF-A174-6D01541A1A65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{E48CA854-332F-49C0-A9B1-F737D02BDE05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E48CA854-332F-49C0-A9B1-F737D02BDE05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E48CA854-332F-49C0-A9B1-F737D02BDE05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74999AD1-072E-4DBF-A174-6D01541A1A65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74999AD1-072E-4DBF-A174-6D01541A1A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74999AD1-072E-4DBF-A174-6D01541A1A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74999AD1-072E-4DBF-A174-6D01541A1A65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
