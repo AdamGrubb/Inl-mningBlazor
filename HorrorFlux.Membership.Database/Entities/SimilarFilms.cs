@@ -10,4 +10,7 @@ public class SimilarFilms
     [Key]
     [Column(Order = 2)]
     public int SimilarFilmId { get; set; }
+
+    public virtual Film ParentFilm { get; set; }
+    public virtual Film SimilarFilm { get; set; }
 }

@@ -1,6 +1,6 @@
 ﻿namespace HorrorFlux.Membership.Database.Entities;
 
-internal class Film : IEntity
+public class Film : IEntity
 {
     public int Id { get ; set ; }
     [MaxLength(50)]
@@ -13,4 +13,8 @@ internal class Film : IEntity
     public string FilmPoster { get; set; }
     public DateTime Release { get; set; }
     public int DirectorId { get; set; }
+    public virtual Director Director { get; set; }
+    public virtual ICollection<SimilarFilms> SimilarFilms { get; set;}
+    public virtual ICollection<FilmGenre> FilmGenres { get; set; }
+
 }

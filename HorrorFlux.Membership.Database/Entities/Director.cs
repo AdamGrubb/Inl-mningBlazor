@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace HorrorFlux.Membership.Database.Entities
         public int Id { get; set; }
         [MaxLength(50)]
         public string Name { get; set; }
+        public virtual ICollection<Film> Films { get; set; }
     }
 }
