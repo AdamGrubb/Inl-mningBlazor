@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorrorFlux.Admin.UI", "HorrorFlux.Admin.UI\HorrorFlux.Admin.UI.csproj", "{AA67C8A3-BD23-4EE0-AF05-EA1942F70D83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorrorFlux.Common", "HorrorFlux.Common\HorrorFlux.Common.csproj", "{0E3475AB-DF0D-468D-A57D-729CF4F85E2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{AA67C8A3-BD23-4EE0-AF05-EA1942F70D83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA67C8A3-BD23-4EE0-AF05-EA1942F70D83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA67C8A3-BD23-4EE0-AF05-EA1942F70D83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E3475AB-DF0D-468D-A57D-729CF4F85E2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E3475AB-DF0D-468D-A57D-729CF4F85E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E3475AB-DF0D-468D-A57D-729CF4F85E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E3475AB-DF0D-468D-A57D-729CF4F85E2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

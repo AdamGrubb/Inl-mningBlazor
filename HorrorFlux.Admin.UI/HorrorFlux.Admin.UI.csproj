@@ -11,4 +11,8 @@
     <Folder Include="Classes\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HorrorFlux.Common\HorrorFlux.Common.csproj" />
+  </ItemGroup>
+
 </Project>
