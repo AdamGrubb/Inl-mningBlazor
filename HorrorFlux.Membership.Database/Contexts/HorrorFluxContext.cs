@@ -46,9 +46,6 @@ namespace HorrorFlux.Membership.Database.Contexts
                 entity.HasMany(d => d.Genres)
                       .WithMany(p => p.Films)
                       .UsingEntity<FilmGenre>()
-                      // Specify the table name for the connection table
-                      // to avoid duplicate tables (FilmGenre and FilmGenres)
-                      // in the database.
                       .ToTable("FilmGenres");
             });
         }
