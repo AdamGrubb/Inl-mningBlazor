@@ -728,3 +728,5 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/aspnetcore,windows,visualstudio,csharp
 # Mitt egna upplägg
 Upplägg för inlämning.txt
+# Samling av posters
+MoviePoster

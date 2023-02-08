@@ -17,7 +17,7 @@ namespace HorrorFlux.Common.DTOs
         public string FilmPoster { get; set; }
         public DateTime Release { get; set; }
         public int DirectorId { get; set; }
-        public  DirectorDTO Director { get; set; }
+        public  string DirectorName { get; set; }
         public  List<SimilarFilmsDTO> SimilarFilms { get; set; }
         public  List<FilmGenreDTO> FilmGenres { get; set; }
     }

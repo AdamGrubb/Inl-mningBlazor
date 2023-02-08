@@ -75,13 +75,16 @@ namespace HorrorFlux.Membership.Database.Services
             return true;
 
         }
-        public void Include<TEntity> ()
+        public void Include<TEntity>() where TEntity : class, IEntity
         {
-            var propertyNames =
-            _db.Model.FindEntityType(typeof(TEntity))?.GetNavigations().Select(e =>
-            e.Name);
+            var propertyNames = _db.Model.FindEntityType(typeof(TEntity))?.GetNavigations().Select(e => e.Name);
+
+            if (propertyNames is null) return;
+
+            foreach (var name in propertyNames)
+                _db.Set<TEntity>().Include(name).Load();
         }
-        
+
     }
     
 }
