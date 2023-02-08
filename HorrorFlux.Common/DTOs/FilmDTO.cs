@@ -18,7 +18,7 @@ namespace HorrorFlux.Common.DTOs
         public DateTime Release { get; set; }
         public int DirectorId { get; set; }
         public  string DirectorName { get; set; }
-        public  List<SimilarFilmsDTO> SimilarFilms { get; set; }
-        public  List<FilmGenreDTO> FilmGenres { get; set; }
+        public  List<SimilarFilmsDTO> SimilarFilms { get; set; } //Ta bort denna? Eller ha nån annan laddningstyp?
+        public  List<FilmGenreDTO> FilmGenres { get; set; } //Ta bort denna? Snarare en string-lista på vilken Genre den har?
     }
 }

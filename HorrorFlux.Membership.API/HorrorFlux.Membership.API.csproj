@@ -21,8 +21,4 @@
     <ProjectReference Include="..\HorrorFlux.Membership.Database\HorrorFlux.Membership.Database.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
