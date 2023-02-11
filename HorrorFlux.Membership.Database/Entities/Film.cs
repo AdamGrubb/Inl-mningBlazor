@@ -15,8 +15,8 @@ public class Film : IEntity
     public string FilmPoster { get; set; }
     public DateTime Release { get; set; }
     public int DirectorId { get; set; }
-    public virtual Director Director { get; set; }
-    public virtual ICollection<SimilarFilms> SimilarFilms { get; set;}
-    public virtual ICollection<Genre> Genres { get; set; }
+    public Director Director { get; set; }
+    public ICollection<SimilarFilms> SimilarFilms { get; set;}
+    public ICollection<Genre> Genres { get; set; }
 
 }
