@@ -29,7 +29,7 @@ namespace HorrorFlux.Membership.API.Controllers
 
                 List<FilmDTO> returnList = freeOnly ? films.Where(film => film.Free == true).ToList() : films;
 
-                return Results.Ok(films);
+                return Results.Ok(returnList);
             }
             catch 
             { 
@@ -39,9 +39,20 @@ namespace HorrorFlux.Membership.API.Controllers
 
         // GET api/<FilmController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IResult> Get(int id) //Här borde du kunna speca vad du är ute efter!
         {
-            return "value";
+            try
+            {
+                _db.Include<Director>();
+                _db.Include<Genre>();
+                //_db.Include<Film>(); //Testa att istället för att ha similarfilms så har du 
+                var film= await _db.SingleAsync<Film, FilmDTO>(film=>film.Id==id);
+                return Results.Ok(film);
+            }
+            catch
+            {
+            }
+            return Results.NotFound();
         }
 
         // POST api/<FilmController>
