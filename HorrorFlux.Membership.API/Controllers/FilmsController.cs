@@ -9,11 +9,11 @@ namespace HorrorFlux.Membership.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FilmController : ControllerBase
+    public class FilmsController : ControllerBase
     {
         private readonly IDbService _db;
 
-        public FilmController(IDbService db)
+        public FilmsController(IDbService db)
         {
             _db = db;
         }
@@ -25,6 +25,10 @@ namespace HorrorFlux.Membership.API.Controllers
             {
                 _db.Include<Director>();
                 var films = await  _db.GetAsync<Film, FilmDTO>();
+                bool freeOnly = true;
+
+                List<FilmDTO> returnList = freeOnly ? films.Where(film => film.Free == true).ToList() : films;
+
                 return Results.Ok(films);
             }
             catch 

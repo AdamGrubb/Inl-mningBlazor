@@ -54,7 +54,7 @@ void ConfigureAutoMapper()
         cfg.CreateMap<Film, FilmDTO>()
         .ForMember(dest => dest.DirectorName, src => src.MapFrom(film => film.Director.Name))
         .ReverseMap()
-        .ForMember(dest => dest.Director, src => src.Ignore());
+        .ForMember(dest => dest.Director, src => src.Ignore()); //Om man lägger till en ny film via denna kontroller så kommer ju inte den skapa en director-connection. Så frågan är ifall man ska låta den hänga med?
 
         cfg.CreateMap<Director, DirectorDTO>().ReverseMap();
 

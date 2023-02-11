@@ -60,6 +60,9 @@ namespace HorrorFlux.Membership.Database.Services
             _db.Set<TEntity>().Update(entity);
         }
 
+        public string GetURI<TEntity>(TEntity entity) where TEntity : class, IEntity
+            => $"/{typeof(TEntity).Name.ToLower()}s/{entity.Id}";
+
         public async Task<bool> DeleteAsync<TEntity>(int id) where TEntity : class, IEntity
         {
             try

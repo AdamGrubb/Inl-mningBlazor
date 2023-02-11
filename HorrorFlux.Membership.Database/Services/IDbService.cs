@@ -24,5 +24,7 @@ namespace HorrorFlux.Membership.Database.Services
         Task<bool> DeleteAsync<TEntity>(int id) where TEntity : class, IEntity;
         void Include<TEntity>() where TEntity : class, IEntity;
 
+        string GetURI<TEntity>(TEntity entity) where TEntity : class, IEntity;
+
     }
 }

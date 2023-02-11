@@ -9,6 +9,8 @@ public class Film : IEntity
     public string Description { get; set; }
     [MaxLength(1024)]
     public string FilmUrl { get; set; }
+
+    public bool Free { get;set; }
     [MaxLength(1024)]
     public string FilmPoster { get; set; }
     public DateTime Release { get; set; }

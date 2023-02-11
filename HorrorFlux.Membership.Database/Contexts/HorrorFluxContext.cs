@@ -69,6 +69,7 @@ namespace HorrorFlux.Membership.Database.Contexts
                     FilmPoster = "/MoviePoster/Super.png",
                     Release = new DateTime(2010, 10, 12),
                     DirectorId = 1,
+                    Free = true
                 },
                 new Film
                 {
@@ -79,7 +80,8 @@ namespace HorrorFlux.Membership.Database.Contexts
                     FilmPoster = "/MoviePoster/Slither.png",
                     Release = new DateTime(2006, 4, 2),
                     DirectorId = 1,
-                });
+                    Free = false
+                }); ;
 
             builder.Entity<SimilarFilms>().HasData(
                 new SimilarFilms { ParentFilmId = 1, SimilarFilmId = 2 });
