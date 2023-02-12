@@ -7,4 +7,8 @@ public class SimilarFilms
 
     public int ParentFilmId { get; set; }
     public int SimilarFilmId { get; set; }
+
+    public Film ParentFilm { get; set; }
+    [ForeignKey(nameof(SimilarFilmId))]
+    public Film SimilarFilm { get; set; }
 }

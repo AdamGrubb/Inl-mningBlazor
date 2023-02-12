@@ -20,7 +20,7 @@ namespace HorrorFlux.Common.DTOs
         public int DirectorId { get; set; }
         public  string DirectorName { get; set; }
         public  List<SimilarFilmsDTO> SimilarFilms { get; set; } //Ta bort denna? Eller ha nån annan laddningstyp?
-        public  List<GenreDTO> Genres { get; set; } //Ta bort denna? Snarare en string-lista på vilken Genre den har?
+        //public  List<GenreDTO> Genres { get; set; } //Ta bort denna? Snarare en string-lista på vilken Genre den har?
     }
     public class SingeFilmDTO
     {
@@ -32,8 +32,30 @@ namespace HorrorFlux.Common.DTOs
         public DateTime Release { get; set; }
         public bool Free { get; set; }
         public int DirectorId { get; set; }
-        public string DirectorName { get; set; }
+        public DirectorDTO Director { get; set; }
         public IEnumerable<GenreDTO> Genres { get; set; } //Ta bort denna? Eller ha nån annan laddningstyp?
-        public List<FilmGenreDTO> FilmGenres { get; set; } //Ta bort denna? Snarare en string-lista på vilken Genre den har?
+        public List<SimilarFilmsDTO> Films { get; set; } //Ta bort denna? Snarare en string-lista på vilken Genre den har?
     }
+    public class previewFilmDTO
+    {
+        public string Title { get; set; }
+        public string FilmPoster { get; set; }
+    }
+
+    //public int Id { get; set; }
+    //[MaxLength(50)]
+    //public string Title { get; set; }
+    //[MaxLength(200)]
+    //public string Description { get; set; }
+    //[MaxLength(1024)]
+    //public string FilmUrl { get; set; }
+
+    //public bool Free { get; set; }
+    //[MaxLength(1024)]
+    //public string FilmPoster { get; set; }
+    //public DateTime Release { get; set; }
+    //public int DirectorId { get; set; }
+    //public Director Director { get; set; }
+    //public ICollection<SimilarFilms> SimilarFilms { get; set; }
+    //public ICollection<Genre> Genres { get; set; }
 }

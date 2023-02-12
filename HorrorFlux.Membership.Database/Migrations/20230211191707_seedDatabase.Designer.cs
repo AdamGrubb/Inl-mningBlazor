@@ -4,6 +4,7 @@ using HorrorFlux.Membership.Database.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HorrorFlux.Membership.Database.Migrations
 {
     [DbContext(typeof(HorrorFluxContext))]
-    partial class HorrorFluxContextModelSnapshot : ModelSnapshot
+    [Migration("20230211191707_seedDatabase")]
+    partial class seedDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -216,11 +219,6 @@ namespace HorrorFlux.Membership.Database.Migrations
                         new
                         {
                             ParentFilmId = 1,
-                            SimilarFilmId = 3
-                        },
-                        new
-                        {
-                            ParentFilmId = 2,
                             SimilarFilmId = 3
                         });
                 });

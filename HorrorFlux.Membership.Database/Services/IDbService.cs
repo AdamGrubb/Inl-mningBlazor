@@ -1,4 +1,5 @@
-﻿using HorrorFlux.Membership.Database.Entities;
+﻿using HorrorFlux.Common.DTOs;
+using HorrorFlux.Membership.Database.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace HorrorFlux.Membership.Database.Services
         void Include<TEntity>() where TEntity : class, IEntity;
 
         string GetURI<TEntity>(TEntity entity) where TEntity : class, IEntity;
+        Task<SingeFilmDTO> GetSingleFilm(int id);
 
     }
 }

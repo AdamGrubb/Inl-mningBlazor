@@ -4,6 +4,7 @@ using HorrorFlux.Membership.Database.Entities;
 using HorrorFlux.Membership.Database.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.FileProviders.Composite;
 using static System.Collections.Specialized.BitVector32;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -62,7 +63,16 @@ void ConfigureAutoMapper()
 
         cfg.CreateMap<FilmGenre, FilmGenreDTO>().ReverseMap();
 
-        cfg.CreateMap<SimilarFilms, SimilarFilmsDTO>().ReverseMap();
+        cfg.CreateMap<SimilarFilms, SimilarFilmsDTO>();
+        //.ForMember(dest => dest.ParentFilm, src => src.MapFrom(film => film.ParentFilm))
+        //.ForMember(dest => dest.SimilarFilm, src => src.MapFrom(film => film.SimilarFilm));
+
+        cfg.CreateMap<Film, previewFilmDTO>();
+
+        cfg.CreateMap<Film, SingeFilmDTO>()
+        .ForMember(dest => dest.Films, src => src.MapFrom(entity => entity.SimilarFilms));
+        //.ForMember(dest => dest.Films, src => src.MapFrom(similar => similar.SimilarFilms.ToList()));
+        //.ReverseMap(); Om man tar bort reverse-map så kan den inte användas åt andra håller bara?
     });
     var mapper = config.CreateMapper();
     builder.Services.AddSingleton(mapper);

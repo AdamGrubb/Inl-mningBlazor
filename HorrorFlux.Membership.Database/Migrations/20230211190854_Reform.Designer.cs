@@ -4,6 +4,7 @@ using HorrorFlux.Membership.Database.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HorrorFlux.Membership.Database.Migrations
 {
     [DbContext(typeof(HorrorFluxContext))]
-    partial class HorrorFluxContextModelSnapshot : ModelSnapshot
+    [Migration("20230211190854_Reform")]
+    partial class Reform
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,13 +41,6 @@ namespace HorrorFlux.Membership.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Directors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "James Gunn"
-                        });
                 });
 
             modelBuilder.Entity("HorrorFlux.Membership.Database.Entities.Film", b =>
@@ -89,41 +85,6 @@ namespace HorrorFlux.Membership.Database.Migrations
                     b.HasIndex("DirectorId");
 
                     b.ToTable("Films");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "After his wife falls under the influence of a drug dealer, an everyday guy transforms himself into Crimson Bolt, a superhero with the best intentions, but lacking in heroic skills.",
-                            DirectorId = 1,
-                            FilmPoster = "/MoviePoster/Super.png",
-                            FilmUrl = "https://www.youtube.com/watch?v=tLj_Bzw8n90",
-                            Free = true,
-                            Release = new DateTime(2010, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Super"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "A small town is taken over by an alien plague, turning residents into zombies and all forms of mutant monsters.",
-                            DirectorId = 1,
-                            FilmPoster = "/MoviePoster/Slither.png",
-                            FilmUrl = "https://www.youtube.com/watch?v=SI0BcgVdSWg",
-                            Free = false,
-                            Release = new DateTime(2006, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Slither"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "A group of intergalactic criminals must pull together to stop a fanatical warrior with plans to purge the universe.",
-                            DirectorId = 1,
-                            FilmPoster = "/MoviePoster/Guardian Of The Galaxy.png",
-                            FilmUrl = "https://www.youtube.com/watch?v=d96cjJhvlMA",
-                            Free = true,
-                            Release = new DateTime(2014, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Guardian Of the Galaxy"
-                        });
                 });
 
             modelBuilder.Entity("HorrorFlux.Membership.Database.Entities.FilmGenre", b =>
@@ -139,28 +100,6 @@ namespace HorrorFlux.Membership.Database.Migrations
                     b.HasIndex("FilmId");
 
                     b.ToTable("FilmGenres", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            GenreId = 1,
-                            FilmId = 1
-                        },
-                        new
-                        {
-                            GenreId = 1,
-                            FilmId = 2
-                        },
-                        new
-                        {
-                            GenreId = 2,
-                            FilmId = 3
-                        },
-                        new
-                        {
-                            GenreId = 2,
-                            FilmId = 2
-                        });
                 });
 
             modelBuilder.Entity("HorrorFlux.Membership.Database.Entities.Genre", b =>
@@ -179,18 +118,6 @@ namespace HorrorFlux.Membership.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genres");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Action"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Sci-Fi"
-                        });
                 });
 
             modelBuilder.Entity("HorrorFlux.Membership.Database.Entities.SimilarFilms", b =>
@@ -206,23 +133,6 @@ namespace HorrorFlux.Membership.Database.Migrations
                     b.HasIndex("SimilarFilmId");
 
                     b.ToTable("SimilarFilm");
-
-                    b.HasData(
-                        new
-                        {
-                            ParentFilmId = 1,
-                            SimilarFilmId = 2
-                        },
-                        new
-                        {
-                            ParentFilmId = 1,
-                            SimilarFilmId = 3
-                        },
-                        new
-                        {
-                            ParentFilmId = 2,
-                            SimilarFilmId = 3
-                        });
                 });
 
             modelBuilder.Entity("HorrorFlux.Membership.Database.Entities.Film", b =>

@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace HorrorFlux.Membership.Database.Contexts
 {
-    public class HorrorFluxContext: DbContext
+    public class HorrorFluxContext : DbContext
     {
         public DbSet<Director> Directors { get; set; }
         public DbSet<Film> Films { get; set; }
         public DbSet<FilmGenre> FilmGenres { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<SimilarFilms> SimilarFilm { get; set; }
-        public HorrorFluxContext(DbContextOptions options) :base (options)
+        public HorrorFluxContext(DbContextOptions options) : base(options)
         {
 
         }
@@ -35,14 +35,18 @@ namespace HorrorFlux.Membership.Database.Contexts
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
+            builder.Entity<Film>(entity => //Här är felet, den laddar bara in en Parent-film, den laddar inte in de andra filmerna.
+                     entity
+                .HasMany(d => d.SimilarFilms)
+                .WithOne(p => p.ParentFilm)
+                .HasForeignKey(d => d.ParentFilmId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+            );
+
+
+
             builder.Entity<Film>(entity =>
             {
-                entity
-                    .HasMany(d => d.SimilarFilms)
-                    .WithOne(p => p.Film)
-                    .HasForeignKey(d => d.ParentFilmId)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
-
                 entity.HasMany(d => d.Genres)
                       .WithMany(p => p.Films)
                       .UsingEntity<FilmGenre>()
@@ -81,10 +85,22 @@ namespace HorrorFlux.Membership.Database.Contexts
                     Release = new DateTime(2006, 4, 2),
                     DirectorId = 1,
                     Free = false
-                }); ;
+                },
+                new Film
+                {
+                    Id = 3,
+                    Title = "Guardian Of the Galaxy",
+                    Description = "A group of intergalactic criminals must pull together to stop a fanatical warrior with plans to purge the universe.",
+                    FilmUrl = "https://www.youtube.com/watch?v=d96cjJhvlMA",
+                    FilmPoster = "/MoviePoster/Guardian Of The Galaxy.png",
+                    Release = new DateTime(2014, 4, 2),
+                    DirectorId = 1,
+                    Free = true
+                });
+
 
             builder.Entity<SimilarFilms>().HasData(
-                new SimilarFilms { ParentFilmId = 1, SimilarFilmId = 2 });
+                new SimilarFilms { ParentFilmId = 1, SimilarFilmId = 2 }, new SimilarFilms { ParentFilmId = 1, SimilarFilmId = 3 }, new SimilarFilms { ParentFilmId = 2, SimilarFilmId = 3 });
 
             builder.Entity<Genre>().HasData(
                 new { Id = 1, Name = "Action" },
@@ -93,7 +109,9 @@ namespace HorrorFlux.Membership.Database.Contexts
             builder.Entity<FilmGenre>().HasData(
                 new FilmGenre { FilmId = 1, GenreId = 1 },
                 new FilmGenre { FilmId = 2, GenreId = 1 },
+                new FilmGenre { FilmId = 3, GenreId = 2 },
                 new FilmGenre { FilmId = 2, GenreId = 2 });
+
         }
 
     }

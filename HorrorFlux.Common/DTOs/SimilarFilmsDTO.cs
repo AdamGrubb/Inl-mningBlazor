@@ -10,11 +10,9 @@ namespace HorrorFlux.Common.DTOs
 {
     public class SimilarFilmsDTO
     {
-        public int ParentFilmId { get; set; }
+        public previewFilmDTO ParentFilm { get; set; }
 
-        public int SimilarFilmId { get; set; }
+        public previewFilmDTO SimilarFilm { get; set; }
 
-        public  FilmDTO ParentFilm { get; set; }
-        public  FilmDTO SimilarFilm { get; set; } //Här skulle man ju behöva få med bara SimilarFilm?
     }
 }
