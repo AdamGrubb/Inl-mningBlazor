@@ -10,7 +10,7 @@ namespace HorrorFlux.Common.DTOs
 {
     public class SimilarFilmsDTO
     {
-        public previewFilmDTO ParentFilm { get; set; }
+        //public previewFilmDTO ParentFilm { get; set; }
 
         public previewFilmDTO SimilarFilm { get; set; }
 

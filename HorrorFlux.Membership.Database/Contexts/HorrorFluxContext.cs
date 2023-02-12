@@ -35,7 +35,7 @@ namespace HorrorFlux.Membership.Database.Contexts
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
-            builder.Entity<Film>(entity => //Här är felet, den laddar bara in en Parent-film, den laddar inte in de andra filmerna.
+            builder.Entity<Film>(entity =>
                      entity
                 .HasMany(d => d.SimilarFilms)
                 .WithOne(p => p.ParentFilm)
