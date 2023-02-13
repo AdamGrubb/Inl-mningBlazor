@@ -50,7 +50,6 @@ namespace HorrorFlux.Membership.API.Controllers
                 _db.Include<SimilarFilms>();
                 var film = await _db.SingleAsync<Film, SingleFilmDTO>(film => film.Id == id);
                 //var film = await _db.GetSingleFilm(id);
-
                 return Results.Ok(film);
             }
             catch
@@ -61,20 +60,40 @@ namespace HorrorFlux.Membership.API.Controllers
 
         // POST api/<FilmController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IResult> Post([FromBody] addFilmDTO addFilm)
         {
+           if (addFilm == null) return Results.BadRequest();
+           var film = await _db.AddAsync<Film, addFilmDTO>(addFilm);
+           var sucess = await _db.SaveChangesAsync();
+           if (sucess==false) return Results.BadRequest();
+           return Results.Created(_db.GetURI(film), film);
         }
 
         // PUT api/<FilmController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IResult> Put(int id, [FromBody] editFilmDTO editFilm)
         {
+            if (id != editFilm.Id || editFilm==null) return Results.BadRequest();
+            var exist = await _db.AnyAsync<Director>(d => d.Id == editFilm.DirectorId);
+            if (exist ==false) return Results.NotFound();
+            _db.Update<Film,editFilmDTO>(id, editFilm);
+            var result = await _db.SaveChangesAsync();
+            if (result) return Results.NoContent();
+            else return Results.BadRequest();
+
         }
 
         // DELETE api/<FilmController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IResult> Delete(int id)
         {
+            var success = await _db.DeleteAsync<Film>(id);
+            if (success == false) return Results.NotFound();
+            success = await _db.SaveChangesAsync();
+            if (success == false) return Results.BadRequest();
+            return Results.NoContent();
         }
+
+
     }
 }
