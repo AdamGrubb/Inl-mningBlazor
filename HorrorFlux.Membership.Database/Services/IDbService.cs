@@ -26,7 +26,7 @@ namespace HorrorFlux.Membership.Database.Services
         void Include<TEntity>() where TEntity : class;
 
         string GetURI<TEntity>(TEntity entity) where TEntity : class, IEntity;
-        Task<SingleFilmDTO> GetSingleFilm(int id);
+        //Task<SingleFilmDTO> GetSingleFilm(int id);
 
     }
 }
