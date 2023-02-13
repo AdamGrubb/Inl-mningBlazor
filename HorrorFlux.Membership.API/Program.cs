@@ -69,7 +69,7 @@ void ConfigureAutoMapper()
 
         cfg.CreateMap<Film, previewFilmDTO>();
 
-        cfg.CreateMap<Film, SingeFilmDTO>()
+        cfg.CreateMap<Film, SingleFilmDTO>()
         .ForMember(dest => dest.Films, src => src.MapFrom(entity => entity.SimilarFilms));
         //.ForMember(dest => dest.Films, src => src.MapFrom(similar => similar.SimilarFilms.ToList()));
         //.ReverseMap(); Om man tar bort reverse-map så kan den inte användas åt andra håller bara?

@@ -22,7 +22,7 @@ namespace HorrorFlux.Common.DTOs
         public  List<SimilarFilmsDTO> SimilarFilms { get; set; } //Ta bort denna? Eller ha nån annan laddningstyp?
         //public  List<GenreDTO> Genres { get; set; } //Ta bort denna? Snarare en string-lista på vilken Genre den har?
     }
-    public class SingeFilmDTO
+    public class SingleFilmDTO
     {
         public int Id { get; set; }
         public string Title { get; set; }

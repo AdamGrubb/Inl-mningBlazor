@@ -21,9 +21,10 @@ namespace HorrorFlux.Membership.API.Controllers
         [HttpGet]
         public async Task<IResult> Get()
         {
-            try
+            try //Du får göra om den här try catchen.
             {
                 _db.Include<Director>();
+                _db.Include<SimilarFilms>();
                 var films = await  _db.GetAsync<Film, FilmDTO>();
                 bool freeOnly = true;
 
@@ -41,19 +42,18 @@ namespace HorrorFlux.Membership.API.Controllers
         [HttpGet("{id}")]
         public async Task<IResult> Get(int id) //Här borde du kunna speca vad du är ute efter!
         {
-            //try
-            //{
-                //_db.Include<Director>();
-                //_db.Include<Genre>();
-                ////_db.Include<Film>(); //Testa att istället för att ha similarfilms så har du 
-                //var film= await _db.SingleAsync<Film, FilmDTO>(film=>film.Id==id);
-                //return Results.Ok(film);
-                return Results.Ok(await _db.GetSingleFilm(id));
-            //}
-            //catch
-            //{
-            //}
-            //return Results.NotFound();
+            try //Du får göra om den här try catchen.
+            {
+                _db.Include<Director>();
+                _db.Include<Genre>();
+                _db.Include<SimilarFilms>();
+                var film = await _db.SingleAsync<Film, SingleFilmDTO>(film => film.Id == id);
+                return Results.Ok(film);
+            }
+            catch
+            {
+            }
+            return Results.NotFound();
         }
 
         // POST api/<FilmController>
