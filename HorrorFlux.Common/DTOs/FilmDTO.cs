@@ -32,7 +32,7 @@ namespace HorrorFlux.Common.DTOs
         public DateTime Release { get; set; }
         public bool Free { get; set; }
         public int DirectorId { get; set; }
-        public DirectorDTO Director { get; set; }
+        public DirectorNameDTO Director { get; set; }
         public IEnumerable<GenreDTO> Genres { get; set; } //Ta bort denna? Eller ha nån annan laddningstyp?
         public IEnumerable<SimilarFilmsDTO> Films { get; set; } //Ta bort denna? Snarare en string-lista på vilken Genre den har?
     }

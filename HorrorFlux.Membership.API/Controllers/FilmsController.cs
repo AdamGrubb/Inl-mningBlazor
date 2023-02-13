@@ -32,10 +32,11 @@ namespace HorrorFlux.Membership.API.Controllers
 
                 return Results.Ok(returnList);
             }
-            catch 
-            { 
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex);
             }
-            return Results.NotFound();
+            
         }
 
         // GET api/<FilmController>/5
@@ -49,37 +50,52 @@ namespace HorrorFlux.Membership.API.Controllers
                 _db.Include<FilmGenre>();
                 _db.Include<SimilarFilms>();
                 var film = await _db.SingleAsync<Film, SingleFilmDTO>(film => film.Id == id);
+                if (film == null) return Results.NotFound();
                 //var film = await _db.GetSingleFilm(id);
                 return Results.Ok(film);
             }
-            catch
+            catch (Exception ex)
             {
+                return Results.BadRequest(ex);
             }
-            return Results.NotFound();
         }
 
         // POST api/<FilmController>
         [HttpPost]
         public async Task<IResult> Post([FromBody] addFilmDTO addFilm)
         {
-           if (addFilm == null) return Results.BadRequest();
-           var film = await _db.AddAsync<Film, addFilmDTO>(addFilm);
-           var sucess = await _db.SaveChangesAsync();
-           if (sucess==false) return Results.BadRequest();
-           return Results.Created(_db.GetURI(film), film);
+            try
+            {
+                if (addFilm == null) return Results.BadRequest();
+                var film = await _db.AddAsync<Film, addFilmDTO>(addFilm);
+                var sucess = await _db.SaveChangesAsync();
+                if (sucess == false) return Results.BadRequest();
+                return Results.Created(_db.GetURI(film), film);
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex);
+            }
         }
 
         // PUT api/<FilmController>/5
         [HttpPut("{id}")]
         public async Task<IResult> Put(int id, [FromBody] editFilmDTO editFilm)
         {
-            if (id != editFilm.Id || editFilm==null) return Results.BadRequest();
-            var exist = await _db.AnyAsync<Director>(d => d.Id == editFilm.DirectorId);
-            if (exist ==false) return Results.NotFound();
-            _db.Update<Film,editFilmDTO>(id, editFilm);
-            var result = await _db.SaveChangesAsync();
-            if (result) return Results.NoContent();
-            else return Results.BadRequest();
+            try
+            {
+                if (id != editFilm.Id || editFilm == null) return Results.BadRequest();
+                var exist = await _db.AnyAsync<Director>(d => d.Id == editFilm.DirectorId);
+                if (exist == false) return Results.NotFound();
+                _db.Update<Film, editFilmDTO>(id, editFilm);
+                var result = await _db.SaveChangesAsync();
+                if (result) return Results.NoContent();
+                else return Results.BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex);
+            }
 
         }
 
@@ -87,11 +103,18 @@ namespace HorrorFlux.Membership.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IResult> Delete(int id)
         {
-            var success = await _db.DeleteAsync<Film>(id);
-            if (success == false) return Results.NotFound();
-            success = await _db.SaveChangesAsync();
-            if (success == false) return Results.BadRequest();
-            return Results.NoContent();
+            try
+            {
+                var success = await _db.DeleteAsync<Film>(id);
+                if (success == false) return Results.NotFound();
+                success = await _db.SaveChangesAsync();
+                if (success == false) return Results.BadRequest();
+                return Results.NoContent();
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex);
+            }
         }
 
 
