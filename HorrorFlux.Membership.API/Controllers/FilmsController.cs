@@ -45,9 +45,12 @@ namespace HorrorFlux.Membership.API.Controllers
             try //Du får göra om den här try catchen.
             {
                 _db.Include<Director>();
-                _db.Include<Genre>();
+                //_db.IncludeFilmGenre(id);
+                _db.Include<FilmGenre>();
                 _db.Include<SimilarFilms>();
                 var film = await _db.SingleAsync<Film, SingleFilmDTO>(film => film.Id == id);
+                //var film = await _db.GetSingleFilm(id);
+
                 return Results.Ok(film);
             }
             catch
