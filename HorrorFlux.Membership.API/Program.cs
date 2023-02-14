@@ -61,6 +61,9 @@ void ConfigureAutoMapper()
 
         cfg.CreateMap<Genre, GenreDTO>().ReverseMap();
 
+        cfg.CreateMap<AddGenreDTO, Genre>();
+        cfg.CreateMap<EditGenreDTO, Genre>();
+
         cfg.CreateMap<addFilmDTO, Film>();
 
         cfg.CreateMap<editFilmDTO, Film>();

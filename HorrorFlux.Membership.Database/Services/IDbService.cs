@@ -28,6 +28,12 @@ namespace HorrorFlux.Membership.Database.Services
         string GetURI<TEntity>(TEntity entity) where TEntity : class, IEntity;
         void IncludeFilmGenre(int id);
         Task<SingleFilmDTO> GetSingleFilm(int id);
-
+        Task<bool> AnyAsyncReferenceTable<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class;
+        Task<TReferenceEntity> AddRefAsync<TReferenceEntity, TDto>(TDto dto)
+            where TReferenceEntity : class
+            where TDto : class;
+        bool DeleteRef<TReferenceEntity, TDto>(TDto dto)
+            where TReferenceEntity : class
+            where TDto : class;
     }
 }

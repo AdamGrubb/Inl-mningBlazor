@@ -3,6 +3,7 @@ using HorrorFlux.Membership.Database.Contexts;
 using HorrorFlux.Membership.Database.Entities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -36,7 +37,11 @@ namespace HorrorFlux.Membership.Database.Services
             return _mapper.Map<TDto>(entity);
         }
 
-        public async Task<bool> AnyAsync<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class, IEntity
+        public async Task<bool> AnyAsync<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class, IEntity //Behöver den här en IEntity???
+        {
+            return await _db.Set<TEntity>().AnyAsync(expression);
+        }
+        public async Task<bool> AnyAsyncReferenceTable<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class
         {
             return await _db.Set<TEntity>().AnyAsync(expression);
         }
@@ -88,6 +93,13 @@ namespace HorrorFlux.Membership.Database.Services
             foreach (var name in propertyNames)
                 _db.Set<TEntity>().Include(name).Load();
         }
+        public async Task<TReferenceEntity> AddRefAsync<TReferenceEntity, TDto>(TDto dto) where TReferenceEntity : class where TDto : class //Gör om den här som i company så att den beror på ett interface också.
+
+        {
+            var refentity = _mapper.Map<TReferenceEntity>(dto);
+            await _db.Set<TReferenceEntity>().AddAsync(refentity);
+            return refentity;
+        }
         public async Task<SingleFilmDTO> GetSingleFilm(int id)
         {
             var chosenFilm = await _db.Set<Film>()
@@ -105,6 +117,20 @@ namespace HorrorFlux.Membership.Database.Services
             .Where(f => f.Id == id)
             .Include(film => film.Genres)
             .Load();
+        }
+        public bool DeleteRef<TReferenceEntity, TDto>(TDto dto) where TReferenceEntity : class where TDto : class //Implementera denna sen vid kopplingstabellen.
+        {
+            try
+            {
+                var refentity = _mapper.Map<TReferenceEntity>(dto);
+                if (refentity is null) return false;
+                _db.Remove(refentity);
+            }
+            catch
+            {
+                throw;
+            }
+            return true;
         }
     }
     
