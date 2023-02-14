@@ -19,17 +19,17 @@ namespace HorrorFlux.Membership.API.Controllers
         }
         // POST api/<SimilarFilmsController>
         [HttpPost]
-        public async Task<IResult> Post([FromBody] FilmGenreDTO filmGenreDTO)
+        public async Task<IResult> Post([FromBody] SimilarFilmsDTO similarFilmsDTO)
         {
             try
             {
-                if (filmGenreDTO == null) return Results.BadRequest();
-                var exist = await _db.AnyAsyncReferenceTable<FilmGenre>(fg => fg.FilmId == filmGenreDTO.FilmId && fg.GenreId == filmGenreDTO.GenreId);
+                if (similarFilmsDTO == null) return Results.BadRequest();
+                var exist = await _db.AnyAsyncReferenceTable<SimilarFilms>(fg => fg.ParentFilmId == similarFilmsDTO.ParentFilmId && fg.SimilarFilmId == similarFilmsDTO.SimilarFilmId);
                 if (exist) return Results.BadRequest("Connection already exists");
-                var filmGenre = await _db.AddRefAsync<FilmGenre, FilmGenreDTO>(filmGenreDTO); //Ändra och eventuellt lägga till en till Interface för referenstabeller=
+                var filmGenre = await _db.AddRefAsync<SimilarFilms, SimilarFilmsDTO>(similarFilmsDTO); //Ändra och eventuellt lägga till en till Interface för referenstabeller=
                 var sucess = await _db.SaveChangesAsync();
                 if (sucess == false) return Results.BadRequest();
-                return Results.Created($"/FilmGenres/{filmGenre.FilmId}{filmGenre.GenreId}", filmGenre);
+                return Results.Created($"/FilmGenres/{filmGenre.ParentFilmId}{filmGenre.SimilarFilmId}", filmGenre);
             }
             catch (Exception ex) //Här borde du göra en catch för ifall den kombinationen redan finns. Eller en if-sats
             {
@@ -39,11 +39,11 @@ namespace HorrorFlux.Membership.API.Controllers
 
         // DELETE api/<SimilarFilmsController>/5
         [HttpDelete] //("{id}") Samma sak här, varför ska man ha kvar ID? Möjligen sätta tillbaka den när du ska göra en GetURI till Post
-        public async Task<IResult> Delete(FilmGenreDTO filmGenreDTO)
+        public async Task<IResult> Delete(SimilarFilmsDTO similarFilmsDTO)
         {
             try
             {
-                var success = _db.DeleteRef<FilmGenre, FilmGenreDTO>(filmGenreDTO);
+                var success = _db.DeleteRef<SimilarFilms, SimilarFilmsDTO>(similarFilmsDTO);
                 if (success == false) return Results.NotFound();
                 success = await _db.SaveChangesAsync();
                 if (success == false) return Results.BadRequest();
