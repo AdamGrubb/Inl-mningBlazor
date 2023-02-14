@@ -69,6 +69,9 @@ void ConfigureAutoMapper()
 
         cfg.CreateMap<Director, DirectorNameDTO>();
 
+        cfg.CreateMap<AddDirector, Director>();
+        cfg.CreateMap<EditDirector, Director>();
+
         cfg.CreateMap<SimilarFilms, SimilarFilmsDTO>();
         //.ForMember(dest => dest.ParentFilm, src => src.MapFrom(film => film.ParentFilm))
         //.ForMember(dest => dest.SimilarFilm, src => src.MapFrom(film => film.SimilarFilm));
