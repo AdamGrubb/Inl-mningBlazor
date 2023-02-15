@@ -1,5 +1,37 @@
-﻿<h3>FilmPortal</h3>
+﻿@inject IAdminService adminService
+
+<h3>FilmPortal</h3>
 
 @code {
+    List<FilmDTO> Model { get; set; } = new();
 
+    protected override async Task OnInitializedAsync()
+    {
+        Model = await adminService.GetAsync<FilmDTO>("Films?freeOnly=false");
+        //var test = await adminService.SingleAsync<FilmDTO>("Films/1");
+        //await adminService.CreateAsync("Films", new addFilmDTO
+        //    {
+        //        Title = "test",
+        //        Description = "testsson",
+        //        FilmUrl = "test",
+        //        FilmPoster = "Testning",
+        //        Release = DateTime.Now,
+        //        Free = false,
+        //        DirectorId = 1
+        //    });
+        //await adminService.EditAsync("Films/10", new editFilmDTO
+        //    {
+        //        Id=10,
+        //        Title = "NUTestarJagEditFUktionen",
+        //        Description = "testsson",
+        //        FilmUrl = "test",
+        //        FilmPoster = "Testning",
+        //        Release = DateTime.Now,
+        //        Free = false,
+        //        DirectorId = 1
+        //    });
+        //await adminService.DeleteAsync<GenreDTO>("Films/10");
+
+    }
 }
+ 

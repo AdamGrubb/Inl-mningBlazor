@@ -19,14 +19,14 @@ namespace HorrorFlux.Membership.API.Controllers
         }
         // GET: api/<FilmController>
         [HttpGet]
-        public async Task<IResult> Get()
+        public async Task<IResult> Get(bool freeOnly)
         {
             try //Du får göra om den här try catchen.
             {
                 _db.Include<Director>();
                 _db.Include<SimilarFilms>();
                 var films = await  _db.GetAsync<Film, FilmDTO>();
-                bool freeOnly = true;
+                //bool freeOnly = true;
 
                 List<FilmDTO> returnList = freeOnly ? films.Where(film => film.Free == true).ToList() : films;
 

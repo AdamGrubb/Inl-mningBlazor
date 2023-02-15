@@ -1,3 +1,5 @@
+using HorrorFlux.Common.HttpClients;
+using HorrorFlux.Common.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -6,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddHttpClient<MembershipHttpClient>(client =>
+client.BaseAddress = new Uri("https://localhost:6001/api/"));
 
 var app = builder.Build();
 
