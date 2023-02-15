@@ -1,1 +1,1 @@
-﻿
+﻿global using HorrorFlux.Admin.UI.Classes;

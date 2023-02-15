@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorrorFlux.Admin.UI", "HorrorFlux.Admin.UI\HorrorFlux.Admin.UI.csproj", "{AA67C8A3-BD23-4EE0-AF05-EA1942F70D83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HorrorFlux.Admin.UI", "HorrorFlux.Admin.UI\HorrorFlux.Admin.UI.csproj", "{AA67C8A3-BD23-4EE0-AF05-EA1942F70D83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorrorFlux.Common", "HorrorFlux.Common\HorrorFlux.Common.csproj", "{0E3475AB-DF0D-468D-A57D-729CF4F85E2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HorrorFlux.Common", "HorrorFlux.Common\HorrorFlux.Common.csproj", "{0E3475AB-DF0D-468D-A57D-729CF4F85E2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorrorFlux.Membership.Database", "HorrorFlux.Membership.Database\HorrorFlux.Membership.Database.csproj", "{E48CA854-332F-49C0-A9B1-F737D02BDE05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HorrorFlux.Membership.Database", "HorrorFlux.Membership.Database\HorrorFlux.Membership.Database.csproj", "{E48CA854-332F-49C0-A9B1-F737D02BDE05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorrorFlux.Membership.API", "HorrorFlux.Membership.API\HorrorFlux.Membership.API.csproj", "{74999AD1-072E-4DBF-A174-6D01541A1A65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HorrorFlux.Membership.API", "HorrorFlux.Membership.API\HorrorFlux.Membership.API.csproj", "{74999AD1-072E-4DBF-A174-6D01541A1A65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
