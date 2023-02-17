@@ -33,8 +33,9 @@
             <InputDate Type="InputDateType.Date" id="ReleaseDate" class="form-control me-2" @bind-Value="Model.Release" placeholder="Release Date"></InputDate>
             <ValidationMessage For="@(() => Model.Release)" />
         </div>
-        <Label>Director</Label>
+        <label>Director</label>
         <InputSelect @bind-Value="Model.DirectorId" class="form-control mb-3">
+            <option value=0></option>
             @foreach (var instructor in Directors)
             {
                 <option value="@instructor.Id">@instructor.Name</option>
@@ -52,7 +53,7 @@
 </EditForm>
 
 @code {
-    [Parameter] public FilmDTO Model { get; set; } = new();
+    [Parameter] public FilmDTO Model { get; set; } = new() { Release=DateTime.Now.ToLocalTime()};
     [Parameter]public string Page { get; set; } = string.Empty;
     [Parameter]public EventCallback<string> OnChange { get; set; }
     public List<DirectorDTO> Directors { get; set; } = new();

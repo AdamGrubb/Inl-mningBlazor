@@ -58,7 +58,7 @@ namespace HorrorFlux.Membership.API.Controllers
             try
             {
                 
-                var success =  _db.DeleteRef<FilmGenre, FilmGenreDTO>(new FilmGenreDTO { FilmId = id[0], GenreId = id[1] });
+                var success =  _db.DeleteRef<FilmGenre, FilmGenreDTO>(new () { FilmId = id[0], GenreId = id[1] });
                 if (success == false) return Results.NotFound();
                 success = await _db.SaveChangesAsync();
                 if (success == false) return Results.BadRequest();

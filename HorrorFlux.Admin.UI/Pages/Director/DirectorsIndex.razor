@@ -1,0 +1,32 @@
+﻿<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (DirectorDTO dto in Model)
+        {
+            <tr>
+                <td>@dto.Name</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" @onclick="@(() => OnClick.InvokeAsync(new ClickModel(PageType.Edit, dto.Id)))" class="btn btn-warning">Edit</button>
+                        <button type="button" @onclick="@(() => OnClick.InvokeAsync(new ClickModel(PageType.Delete, dto.Id)))" class="btn btn-danger">Delete</button>
+                    </div>
+                </td>
+
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+
+
+@code {
+    [Parameter] public List<DirectorDTO> Model { get; set; } = new();
+    [Parameter] public EventCallback<ClickModel> OnClick { get; set; }
+}

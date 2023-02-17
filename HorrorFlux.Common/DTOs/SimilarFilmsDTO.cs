@@ -20,4 +20,13 @@ namespace HorrorFlux.Common.DTOs
         public previewFilmDTO SimilarFilm { get; set; }
     }
 
+    public class SimilarFilmsNameDTO
+    {
+   public int ParentFilmId { get; set; }
+   public int SimilarFilmId { get; set; }
+
+        public string ParentFilmTitle { get; set; }
+        public string SimilarFilmTitle { get; set; }
+    }
+
 }

@@ -10,7 +10,8 @@ using static System.Collections.Specialized.BitVector32;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddCors(policy => {
+builder.Services.AddCors(policy =>
+{
     policy.AddPolicy("CorsAllAccessPolicy", opt =>
         opt.AllowAnyOrigin()
            .AllowAnyHeader()
@@ -65,6 +66,13 @@ void ConfigureAutoMapper()
         cfg.CreateMap<EditGenreDTO, Genre>();
 
         cfg.CreateMap<addFilmDTO, Film>();
+
+        cfg.CreateMap<SimilarFilms, SimilarFilmsNameDTO>()
+        .ForMember(dest => dest.ParentFilmTitle, src => src.MapFrom(parentFilm => parentFilm.ParentFilm.Title))
+        .ForMember(dest => dest.SimilarFilmTitle, src => src.MapFrom(parentFilm => parentFilm.SimilarFilm.Title))
+         .ReverseMap()
+        .ForMember(dest => dest.SimilarFilm, src => src.Ignore())
+        .ForMember(dest => dest.ParentFilm, src => src.Ignore());
 
         cfg.CreateMap<FilmGenre, FilmGenreNameDTO>()
         .ForMember(dest => dest.FilmName, src => src.MapFrom(film => film.Film.Title))

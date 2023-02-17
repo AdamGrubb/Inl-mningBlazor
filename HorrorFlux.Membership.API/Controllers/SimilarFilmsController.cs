@@ -17,6 +17,22 @@ namespace HorrorFlux.Membership.API.Controllers
         {
             _db = db;
         }
+        [HttpGet]
+        public async Task<IResult> Get()
+        {
+            try //Du får göra om den här try catchen.
+            {
+                _db.Include<SimilarFilms>(); //Testa utan den här sen!!
+                var filmGenres = await _db.GetRefAsync<SimilarFilms, SimilarFilmsNameDTO>();
+
+                return Results.Ok(filmGenres);
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex);
+            }
+
+        }
         // POST api/<SimilarFilmsController>
         [HttpPost]
         public async Task<IResult> Post([FromBody] SimilarFilmsDTO similarFilmsDTO)
@@ -24,12 +40,13 @@ namespace HorrorFlux.Membership.API.Controllers
             try
             {
                 if (similarFilmsDTO == null) return Results.BadRequest();
+                if (similarFilmsDTO.ParentFilmId == similarFilmsDTO.SimilarFilmId) return Results.BadRequest("You cannot set the Parentfilm id to the same film");
                 var exist = await _db.AnyAsyncReferenceTable<SimilarFilms>(fg => fg.ParentFilmId == similarFilmsDTO.ParentFilmId && fg.SimilarFilmId == similarFilmsDTO.SimilarFilmId);
                 if (exist) return Results.BadRequest("Connection already exists");
-                var filmGenre = await _db.AddRefAsync<SimilarFilms, SimilarFilmsDTO>(similarFilmsDTO); //Ändra och eventuellt lägga till en till Interface för referenstabeller=
+                var similarFilms = await _db.AddRefAsync<SimilarFilms, SimilarFilmsDTO>(similarFilmsDTO); //Ändra och eventuellt lägga till en till Interface för referenstabeller=
                 var sucess = await _db.SaveChangesAsync();
                 if (sucess == false) return Results.BadRequest();
-                return Results.Created($"/FilmGenres/{filmGenre.ParentFilmId}{filmGenre.SimilarFilmId}", filmGenre);
+                return Results.Created($"/SimilarFilms/{similarFilms.ParentFilmId}{similarFilms.SimilarFilmId}", similarFilms);
             }
             catch (Exception ex) //Här borde du göra en catch för ifall den kombinationen redan finns. Eller en if-sats
             {
@@ -38,12 +55,12 @@ namespace HorrorFlux.Membership.API.Controllers
         }
 
         // DELETE api/<SimilarFilmsController>/5
-        [HttpDelete] //("{id}") Samma sak här, varför ska man ha kvar ID? Möjligen sätta tillbaka den när du ska göra en GetURI till Post
-        public async Task<IResult> Delete(SimilarFilmsDTO similarFilmsDTO)
+        [HttpDelete]
+        public async Task<IResult> Delete([FromQuery] int[] id)
         {
             try
             {
-                var success = _db.DeleteRef<SimilarFilms, SimilarFilmsDTO>(similarFilmsDTO);
+                var success = _db.DeleteRef<SimilarFilms, SimilarFilmsDTO>(new SimilarFilmsDTO(){ ParentFilmId = id[0], SimilarFilmId = id[1] });
                 if (success == false) return Results.NotFound();
                 success = await _db.SaveChangesAsync();
                 if (success == false) return Results.BadRequest();
