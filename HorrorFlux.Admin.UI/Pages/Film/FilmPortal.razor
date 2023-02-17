@@ -9,46 +9,35 @@
         </div>
     </div>
 }
+@if (Navigation==PageType.Create)
+{
+    <ChangeFilm Page="@Navigation" OnChange="OnChange"></ChangeFilm>
+}
+@if (Navigation == PageType.Edit || Navigation == PageType.Delete)
+{
+    <ChangeFilm Page="@Navigation" OnChange="OnChange" Model="Film"></ChangeFilm>
+}
 <div class="d-flex me-1">
     <a href="/" class="btn btn-primary me-1">Home</a>
     <button class="btn btn-primary me-1" @onclick="()=>ChangePageType(PageType.Index)">Index</button>
     <button class="btn btn-primary me-1" @onclick="()=>ChangePageType(PageType.Create)">Create</button>
 </div>
 
+<FilmsIndex OnClick="OnClick" Model="Model"></FilmsIndex>
+
 @code {
     List<FilmDTO> Model { get; set; } = new();
     string Alert { get; set; } = string.Empty;
     string Navigation { get; set; } = PageType.Index;
+    public FilmDTO Film { get; set; } = new();
 
 
     protected override async Task OnInitializedAsync()
     {
         Alert = string.Empty;
-        //Alert = string.Empty;
+
         Model = await adminService.GetAsync<FilmDTO>("Films?freeOnly=false");
-        //var test = await adminService.SingleAsync<FilmDTO>("Films/1");
-        //await adminService.CreateAsync("Films", new addFilmDTO
-        //    {
-        //        Title = "test",
-        //        Description = "testsson",
-        //        FilmUrl = "test",
-        //        FilmPoster = "Testning",
-        //        Release = DateTime.Now,
-        //        Free = false,
-        //        DirectorId = 1
-        //    });
-        //await adminService.EditAsync("Films/10", new editFilmDTO
-        //    {
-        //        Id=10,
-        //        Title = "NUTestarJagEditFUktionen",
-        //        Description = "testsson",
-        //        FilmUrl = "test",
-        //        FilmPoster = "Testning",
-        //        Release = DateTime.Now,
-        //        Free = false,
-        //        DirectorId = 1
-        //    });
-        //await adminService.DeleteAsync<GenreDTO>("Films/10");
+
 
     }
 
@@ -60,4 +49,28 @@
     {
         Alert = string.Empty;
     }
+    async Task OnClick(ClickModel model)
+    {
+        if (model.PageType.Equals(PageType.Edit) || model.PageType.Equals(PageType.Delete))
+            Film = await adminService.SingleAsync<FilmDTO>($"Films/{model.Id}") ?? new();
+
+        ChangePageType(model.PageType);
+    }
+    async Task OnChange(string alert)
+    {
+        try
+        {
+            Alert = alert;
+            Model = await adminService.GetAsync<FilmDTO>("Films?freeOnly=false");
+            ChangePageType(PageType.Index);
+            Film = new();
+        }
+        catch
+        {
+            Alert = "Couldn't create/edit/delete the course.";
+        }
+
+    }
+
+
 }

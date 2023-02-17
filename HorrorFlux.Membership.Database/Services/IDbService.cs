@@ -35,5 +35,8 @@ namespace HorrorFlux.Membership.Database.Services
         bool DeleteRef<TReferenceEntity, TDto>(TDto dto)
             where TReferenceEntity : class
             where TDto : class;
+        Task<List<TDto>> GetRefAsync<TEntity, TDto>()
+            where TEntity : class
+            where TDto : class;
     }
 }

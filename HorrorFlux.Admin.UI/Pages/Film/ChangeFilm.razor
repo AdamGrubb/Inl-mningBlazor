@@ -1,0 +1,82 @@
+﻿@inject IAdminService adminService
+
+<EditForm Model="Model" OnValidSubmit="@OnFormSubmit" class="mb-5 border border-1 border-secondary p-2 w-25">
+    <DataAnnotationsValidator/>
+    <h4>@Page Film</h4>
+    <div class="mb-3">
+        @if (Page.Equals(PageType.Delete))
+        {
+            <InputText id="title" class="form-control me-2" @bind-Value="Model.Title" disabled placeholder="Title"></InputText>
+        }
+        else
+        {
+            <InputText id="title" class="form-control me-2" @bind-Value="Model.Title" placeholder="Title"></InputText>
+        }
+        <ValidationMessage For="@(() => Model.Title)" />
+    </div>
+
+    @if (!Page.Equals(PageType.Delete))
+    {
+        <div class="mb-3">
+            <InputText id="description" class="form-control me-2" @bind-Value="Model.Description" placeholder="Description"></InputText>
+            <ValidationMessage For="@(() => Model.Description)" />
+        </div>
+        <div class="mb-3">
+            <InputText id="FilmPoster-url" class="form-control me-2" @bind-Value="Model.FilmPoster" placeholder="Image Url"></InputText>
+            <ValidationMessage For="@(() => Model.FilmPoster)" />
+        </div>
+        <div class="mb-3">
+            <InputText id="FilmUrl-url" class="form-control me-2" @bind-Value="Model.FilmUrl" placeholder="Film Url"></InputText>
+            <ValidationMessage For="@(() => Model.FilmUrl)" />
+        </div>
+        <div class="mb-3">
+            <InputDate Type="InputDateType.Date" id="ReleaseDate" class="form-control me-2" @bind-Value="Model.Release" placeholder="Release Date"></InputDate>
+            <ValidationMessage For="@(() => Model.Release)" />
+        </div>
+        <Label>Director</Label>
+        <InputSelect @bind-Value="Model.DirectorId" class="form-control mb-3">
+            @foreach (var instructor in Directors)
+            {
+                <option value="@instructor.Id">@instructor.Name</option>
+            }
+        </InputSelect>
+
+        <div class="mb-3">
+            <label>
+                <InputCheckbox @bind-Value="Model.Free" />
+                Free film
+            </label>
+        </div>
+    }
+    <button type="submit" class="btn btn-@(Page.Equals(PageType.Delete) ? "danger" : Page.Equals(PageType.Edit)? "warning" : "success") rounded-0">@Page</button>
+</EditForm>
+
+@code {
+    [Parameter] public FilmDTO Model { get; set; } = new();
+    [Parameter]public string Page { get; set; } = string.Empty;
+    [Parameter]public EventCallback<string> OnChange { get; set; }
+    public List<DirectorDTO> Directors { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Directors = await adminService.GetAsync<DirectorDTO>("Directors");
+    }
+    public async Task OnFormSubmit() //Här får du väl fundera hur du ska göra, om du ska skicka in en FilmDTO verkligen? Det borde väl vara en edit eller create?
+    {
+        try
+        {
+            if (Page.Equals(PageType.Create))
+                await adminService.CreateAsync<FilmDTO>("Films", Model);
+            else if (Page.Equals(PageType.Edit))
+                await adminService.EditAsync<FilmDTO>($"Films/{Model.Id}", Model);
+            else if (Page.Equals(PageType.Delete))
+                await adminService.DeleteAsync<FilmDTO>($"Films/{Model.Id}");
+
+            await OnChange.InvokeAsync("");
+        }
+        catch
+        {
+            await OnChange.InvokeAsync("Couldn't create/edit/delete the course.");
+        }
+    }
+}

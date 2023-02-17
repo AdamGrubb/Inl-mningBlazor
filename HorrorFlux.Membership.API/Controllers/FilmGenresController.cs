@@ -16,6 +16,22 @@ namespace HorrorFlux.Membership.API.Controllers
         {
             _db = db;
         }
+        [HttpGet]
+        public async Task<IResult> Get()
+        {
+            try //Du får göra om den här try catchen.
+            {
+                _db.Include<FilmGenre>();
+                var filmGenres = await _db.GetRefAsync<FilmGenre, FilmGenreNameDTO>();
+
+                return Results.Ok(filmGenres);
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex);
+            }
+
+        }
         // POST api/<FilmGenresController>
         [HttpPost]
         public async Task<IResult> Post([FromBody] FilmGenreDTO filmGenreDTO)
@@ -35,13 +51,14 @@ namespace HorrorFlux.Membership.API.Controllers
                 return Results.BadRequest(ex);
             }
         }
-        // DELETE api/<FilmGenresController>/5
-        [HttpDelete] //("{id}") Vet inte helt säkert varför man ska ha kvar id här?
-        public async Task<IResult> Delete(FilmGenreDTO filmGenreDTO)
+        // DELETE api/<FilmGenresController>/5 //("{id}") Vet inte helt säkert varför man ska ha kvar id här?
+        [HttpDelete]
+        public async Task<IResult> Delete([FromQuery] int [] id) //Testa göra en kontroller där man stoppar in 
         {
             try
             {
-                var success =  _db.DeleteRef<FilmGenre, FilmGenreDTO>(filmGenreDTO);
+                
+                var success =  _db.DeleteRef<FilmGenre, FilmGenreDTO>(new FilmGenreDTO { FilmId = id[0], GenreId = id[1] });
                 if (success == false) return Results.NotFound();
                 success = await _db.SaveChangesAsync();
                 if (success == false) return Results.BadRequest();

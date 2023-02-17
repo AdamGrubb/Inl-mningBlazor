@@ -27,6 +27,11 @@ namespace HorrorFlux.Membership.Database.Services
             var entities = await _db.Set<TEntity>().ToListAsync();
             return _mapper.Map<List<TDto>>(entities);
         }
+        public async Task<List<TDto>> GetRefAsync<TEntity, TDto>() where TEntity:class where TDto : class
+        {
+            var entities = await _db.Set<TEntity>().ToListAsync();
+            return _mapper.Map<List<TDto>>(entities);
+        }
 
         private async Task<TEntity?> SingleAsync<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class, IEntity =>
         await _db.Set<TEntity>().SingleOrDefaultAsync(expression);
@@ -118,7 +123,7 @@ namespace HorrorFlux.Membership.Database.Services
             .Include(film => film.Genres)
             .Load();
         }
-        public bool DeleteRef<TReferenceEntity, TDto>(TDto dto) where TReferenceEntity : class where TDto : class //Implementera denna sen vid kopplingstabellen.
+        public bool DeleteRef<TReferenceEntity, TDto>(TDto dto) where TReferenceEntity : class where TDto : class
         {
             try
             {

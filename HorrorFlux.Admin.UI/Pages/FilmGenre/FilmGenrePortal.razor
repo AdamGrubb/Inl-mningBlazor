@@ -1,5 +1,76 @@
-﻿<h3>FilmGenrePortal</h3>
+﻿@inject IAdminService adminService
+
+@if (string.IsNullOrEmpty(Alert) == false)
+{
+    <div class="d-flex">
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <strong>@Alert</strong>
+            <button type="button" @onclick="CloseAlert" class="btn-close" aria-label="Close"></button>
+        </div>
+    </div>
+}
+@if (Navigation == PageType.Create)
+{
+    <ChangeFilmGenre Page="@Navigation" OnChange="OnChange"></ChangeFilmGenre>
+}
+@if ( Navigation == PageType.Delete)
+{
+    <ChangeFilmGenre Page="@Navigation" OnChange="OnChange" Model="FilmGenre"></ChangeFilmGenre>
+}
+<div class="d-flex me-1">
+    <a href="/" class="btn btn-primary me-1">Home</a>
+    <button class="btn btn-primary me-1" @onclick="()=>ChangePageType(PageType.Index)">Index</button>
+    <button class="btn btn-primary me-1" @onclick="()=>ChangePageType(PageType.Create)">Create</button>
+</div>
+
+<FilmGenresIndex OnClick="OnClick" Model="Model"></FilmGenresIndex>
 
 @code {
+    List<FilmGenreNameDTO> Model { get; set; } = new();
+    string Alert { get; set; } = string.Empty;
+    string Navigation { get; set; } = PageType.Index;
+    public FilmGenreNameDTO FilmGenre { get; set; } = new();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Alert = string.Empty;
+
+        Model = await adminService.GetAsync<FilmGenreNameDTO>("FilmGenres");
+
+
+    }
+
+    void ChangePageType(string pageType)
+    {
+        Navigation = pageType;
+    }
+    void CloseAlert()
+    {
+        Alert = string.Empty;
+    }
+    async Task OnClick(ClickModelReferens<FilmGenreNameDTO> model)
+    {
+        if (model.PageType.Equals(PageType.Edit) || model.PageType.Equals(PageType.Delete))
+            FilmGenre = model.dto;
+
+        ChangePageType(model.PageType);
+    }
+    async Task OnChange(string alert)
+    {
+        try
+        {
+            Alert = alert;
+            Model = await adminService.GetAsync<FilmGenreNameDTO>("FilmGenres");
+            ChangePageType(PageType.Index);
+            FilmGenre = new();
+        }
+        catch
+        {
+            Alert = "Couldn't create/edit/delete the course.";
+        }
+
+    }
+
 
 }

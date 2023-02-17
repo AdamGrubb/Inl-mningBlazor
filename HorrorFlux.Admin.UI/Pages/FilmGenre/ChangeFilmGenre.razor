@@ -1,0 +1,61 @@
+﻿@inject IAdminService adminService
+
+<EditForm Model="Model" OnValidSubmit="@OnFormSubmit" class="mb-5 border border-1 border-secondary p-2 w-25">
+    <DataAnnotationsValidator />
+    <h4>@Page FilmGenres</h4>
+    <div class="mb-3">
+        @if (Page.Equals(PageType.Delete))
+        {
+            <InputText id="Filmtitle" class="form-control me-2" @bind-Value="Model.FilmName" disabled placeholder="Title"></InputText>
+            <InputText id="GenreName" class="form-control me-2" @bind-Value="Model.GenreName" disabled placeholder="Title"></InputText>
+        }
+        else
+        {
+            <InputSelect @bind-Value="Model.FilmId" class="form-control mb-3">
+                @foreach (var film in filmDTO)
+                {
+                    <option value="@film.Id">@film.Title</option>
+                }
+            </InputSelect>
+            <InputSelect @bind-Value="Model.GenreId" class="form-control mb-3">
+                @foreach (var genre in genreDTO)
+                {
+                    <option value="@genre.Id">@genre.Name</option>
+                }
+            </InputSelect>
+
+        }
+    </div>
+
+    <button type="submit" class="btn btn-@(Page.Equals(PageType.Delete) ? "danger" : "success") rounded-0">@Page</button>
+</EditForm>
+
+@code {
+    [Parameter] public FilmGenreNameDTO Model { get; set; } = new();
+    [Parameter] public string Page { get; set; } = string.Empty;
+    [Parameter] public EventCallback<string> OnChange { get; set; }
+    public List<FilmDTO> filmDTO { get; set; } = new();
+    public List<GenreDTO> genreDTO { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        filmDTO = await adminService.GetAsync<FilmDTO>("Films");
+        genreDTO = await adminService.GetAsync<GenreDTO>("Genres");
+    }
+    public async Task OnFormSubmit() //Här får du väl fundera hur du ska göra, om du ska skicka in en FilmDTO verkligen? Det borde väl vara en edit eller create?
+    {
+        try
+        {
+            if (Page.Equals(PageType.Create))
+                await adminService.CreateAsync<FilmGenreNameDTO>("FilmGenres", Model);
+            else if (Page.Equals(PageType.Delete))
+                await adminService.DeleteAsync<FilmGenreNameDTO>($"FilmGenres?id={Model.FilmId}&id={Model.GenreId}");
+
+            await OnChange.InvokeAsync("");
+        }
+        catch
+        {
+            await OnChange.InvokeAsync("Couldn't create/edit/delete the course.");
+        }
+    }
+}

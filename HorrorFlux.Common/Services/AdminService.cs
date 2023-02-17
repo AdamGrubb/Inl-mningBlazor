@@ -82,7 +82,7 @@ namespace HorrorFlux.Common.Services
 
             }
         }
-        public async Task DeleteAsync<TDto>(string uri) //Finns det en anledning till att den är generisk?
+        public async Task DeleteAsync<TDto>(string uri) //När det gäller referenstabeller skicka in: $"FilmGenres?id={{ParentId},{SimilarFildId}}"
         {
             try
             {
