@@ -63,7 +63,7 @@
             Alert = alert;
             Model = await adminService.GetAsync<FilmDTO>("Films?freeOnly=false");
             ChangePageType(PageType.Index);
-            Film = new();
+            Film = new(); //Här kanske du ska lägga ditt dagens-datum-grej
         }
         catch
         {

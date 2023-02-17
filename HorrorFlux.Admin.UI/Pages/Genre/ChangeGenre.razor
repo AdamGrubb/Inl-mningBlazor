@@ -1,0 +1,43 @@
+﻿@inject IAdminService adminService
+
+<EditForm Model="Model" OnValidSubmit="@OnFormSubmit" class="mb-5 border border-1 border-secondary p-2 w-25">
+    <DataAnnotationsValidator/>
+    <h4>@Page Genre</h4>
+    <div class="mb-3">
+        @if (Page.Equals(PageType.Delete))
+        {
+            <InputText id="title" class="form-control me-2" @bind-Value="Model.Name" disabled placeholder="Title"></InputText>
+        }
+        else
+        {
+            <InputText id="title" class="form-control me-2" @bind-Value="Model.Name" placeholder="Title"></InputText>
+        }
+        <ValidationMessage For="@(() => Model.Name)" />
+    </div>
+    <button type="submit" class="btn btn-@(Page.Equals(PageType.Delete) ? "danger" : Page.Equals(PageType.Edit)? "warning" : "success") rounded-0">@Page</button>
+</EditForm>
+
+@code {
+    [Parameter] public GenreDTO Model { get; set; } = new();
+    [Parameter]public string Page { get; set; } = string.Empty;
+    [Parameter]public EventCallback<string> OnChange { get; set; }
+
+    public async Task OnFormSubmit() //Här får du väl fundera hur du ska göra, om du ska skicka in en FilmDTO verkligen? Det borde väl vara en edit eller create?
+    {
+        try
+        {
+            if (Page.Equals(PageType.Create))
+                await adminService.CreateAsync<GenreDTO>("Genres", Model);
+            else if (Page.Equals(PageType.Edit))
+                await adminService.EditAsync<GenreDTO>($"Genres/{Model.Id}", Model);
+            else if (Page.Equals(PageType.Delete))
+                await adminService.DeleteAsync<GenreDTO>($"Genres/{Model.Id}");
+
+            await OnChange.InvokeAsync("");
+        }
+        catch
+        {
+            await OnChange.InvokeAsync("Couldn't create/edit/delete the genre.");
+        }
+    }
+}
