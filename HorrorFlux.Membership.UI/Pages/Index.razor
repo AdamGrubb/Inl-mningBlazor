@@ -1,8 +1,24 @@
 ﻿@page "/"
+@using HorrorFlux.Common.DTOs;
 @using HorrorFlux.Common.Services;
 @inject IMembershipService membershipService;
 
 <PageTitle>Dashboard</PageTitle>
 
+@foreach (GenreDTO genre in genres)
+{
+    <FilmChooser genre="genre"/>
+}
+
+
 <h1>Dashboard</h1>
+
+@code {
+    List<GenreDTO> genres { get; set; } = new();
+    protected override async Task OnInitializedAsync()
+    {
+        genres = await membershipService.GetGenresAsync();
+    }
+
+}
  
