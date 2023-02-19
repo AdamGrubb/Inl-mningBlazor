@@ -1,4 +1,5 @@
 using HorrorFlux.Common.HttpClients;
+using HorrorFlux.Common.Services;
 using HorrorFlux.Membership.UI;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.Services.AddHttpClient<MembershipHttpClient>(client =>
 client.BaseAddress = new Uri("https://localhost:6001/api/"));
+builder.Services.AddScoped<IMembershipService, MembershipService>();
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
