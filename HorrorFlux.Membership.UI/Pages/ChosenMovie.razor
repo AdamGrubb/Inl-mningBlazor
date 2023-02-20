@@ -1,0 +1,21 @@
+﻿@page "/ChosenMovie/{Id:int}"
+@using HorrorFlux.Common.DTOs;
+
+<div class="d-flex">
+    <h3>@film.Title</h3>
+    <img src="@film.FilmPoster"/>
+</div>
+@foreach (ListSimilarFilmsDTO similarFilm in film.SimilarFilms)
+{
+    <a href="/ChosenMovie/{@similarFilm.SimilarFilm.Title}" class="card text-center" style="width: 18rem;">
+        <img src="@film.FilmPoster" class="card-img-top" alt="poster for {@film.Title}">
+        <div class="card-body">
+            <p class="card-text ">@film.Title</p>
+        </div>
+    </a>
+}
+
+@code {
+    [Parameter] public int Id { get; set; }
+    public FilmDTO film { get; set; }
+}
