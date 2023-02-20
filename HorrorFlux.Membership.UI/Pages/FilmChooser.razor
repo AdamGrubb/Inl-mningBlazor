@@ -1,18 +1,19 @@
 ﻿@using HorrorFlux.Common.DTOs;
 <h3>@genre.Name</h3> @*Här får du göra nått custom typsnitt typ*@
 
-<div class="d-flex"> @*Här får du göra ett maxresultat på typ 5, sen lägga till paginering. Som kanske rullar ett åt vänster och ett åt höger. Sen antar jag att du får göra div:en till en a-tag så att du kan länka vidare? och ta ID från filen till en ny get.*@
+<div class="d-flex SelectionRow">
+    @*Här får du göra ett maxresultat på typ 5, sen lägga till paginering. Som kanske rullar ett åt vänster och ett åt höger. Sen antar jag att du får göra div:en till en a-tag så att du kan länka vidare? och ta ID från filen till en ny get.*@
     @foreach (FilmDTO film in genre.Films)
     {
-        <a href="/ChosenMovie/{@film.Id}" class="card text-center" style="width: 18rem;">
-            <img src="@film.FilmPoster" class="card-img-top" alt="poster for {@film.Title}">
-            <div class="card-body">
+
+        <a href="/ChosenMovie/@film.Id" class="SingleFilm ps-2" style="">
+            <img src="@film.FilmPoster" class="PictureThumbnail" alt="poster for {@film.Title}">
+@*            <div class="card-body">
+
                 <p class="card-text ">@film.Title</p>
-            </div>
+            </div>*@
         </a>
     }
-
-
 </div>
 
 @code {

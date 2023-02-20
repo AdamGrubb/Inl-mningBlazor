@@ -105,17 +105,6 @@ namespace HorrorFlux.Membership.Database.Services
             await _db.Set<TReferenceEntity>().AddAsync(refentity);
             return refentity;
         }
-        public async Task<SingleFilmDTO> GetSingleFilm(int id)
-        {
-            var chosenFilm = await _db.Set<Film>()
-                 .Where(f => f.Id == id)
-                 .Include(film => film.Genres)
-                 .Include(film => film.Director)
-                 .Include(film => film.SimilarFilms)
-                 .ThenInclude(film => film.SimilarFilm)
-                 .SingleOrDefaultAsync();
-            return _mapper.Map<SingleFilmDTO>(chosenFilm);
-        }
         public void IncludeFilmGenre(int id)
         {
             _db.Set<Film>()

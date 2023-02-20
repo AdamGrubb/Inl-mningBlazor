@@ -1,0 +1,16 @@
+﻿@using HorrorFlux.Common.DTOs;
+
+
+        <div class="card text-center" style="width: 18rem;">
+    <img src="@film.FilmPoster" class="card-img-top" alt="poster for {@film.Title}">
+            <div class="card-body">
+        <p class="card-text ">@film.Title</p>
+            </div>
+        </div>
+
+}
+
+@code {
+    [Parameter] public previewFilmDTO film { get; set; } = new();
+
+}

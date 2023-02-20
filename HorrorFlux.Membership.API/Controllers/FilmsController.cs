@@ -49,7 +49,7 @@ namespace HorrorFlux.Membership.API.Controllers
                 //_db.IncludeFilmGenre(id);
                 _db.Include<FilmGenre>();
                 _db.Include<SimilarFilms>();
-                var film = await _db.SingleAsync<Film, SingleFilmDTO>(film => film.Id == id);
+                var film = await _db.SingleAsync<Film, FilmDTO>(film => film.Id == id);
                 if (film == null) return Results.NotFound();
                 //var film = await _db.GetSingleFilm(id);
                 return Results.Ok(film);

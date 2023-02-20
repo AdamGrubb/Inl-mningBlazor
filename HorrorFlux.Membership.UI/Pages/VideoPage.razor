@@ -1,0 +1,39 @@
+﻿@page "/VideoPage/{Id:int}"
+@using HorrorFlux.Common.DTOs;
+@using HorrorFlux.Common.Services;
+@inject IMembershipService membershipService;
+
+<a href="/ChosenMovie/@Id" type="button" class="btn btn-primary btn-lg">
+    <i class="oi oi-arrow-left">
+        <span class="vertical-align">Back</span>
+    </i>
+</a>
+
+<div class="d-flex flex-column">
+
+    <div class="card flex-fill rounded-0">
+        @if (Model.FilmUrl != null)
+        {
+            <div class="video-player">
+                <iframe src="@Model.FilmUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        }
+        <div class="card-body">
+            <h2>@Model.Title</h2>
+            <hr class="m-0">
+            @Model.Description
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    public FilmDTO Model { get; set; } = new();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Model = await membershipService.GetFilmAsync(Id);
+    }
+
+}
