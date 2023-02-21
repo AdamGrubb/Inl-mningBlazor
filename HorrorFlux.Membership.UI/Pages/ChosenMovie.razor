@@ -1,8 +1,7 @@
-﻿@page "/ChosenMovie/{Id:int}"
+﻿@page "/ChosenMovie/{id:int}"
 @inject IMembershipService membershipService;
 @using HorrorFlux.Common.DTOs;
 @using HorrorFlux.Common.Services;
-@using HorrorFlux.Membership.UI.Pages.Single_Movie
 
 
 <a href="/" type="button" class="btn btn-primary btn-lg">
@@ -27,20 +26,20 @@
 </div>
 
 
+    <FilmChooser films="film.SimilarFilms" />
 
-
-@foreach (previewFilmDTO film in film.SimilarFilms)
-{
-
-    <SelectedMovie film="film"/>
-}
 
 
 @code {
     [Parameter] public int Id { get; set; }
+
     public FilmDTO film { get; set; } = new();
 
-    protected override async Task OnInitializedAsync()
+    //protected override async Task OnInitializedAsync()
+    //{
+        
+    //}
+    protected override async Task OnParametersSetAsync()
     {
         film = await membershipService.GetFilmAsync(Id);
     }

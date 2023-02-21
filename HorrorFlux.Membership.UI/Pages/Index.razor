@@ -5,13 +5,17 @@
 
 <PageTitle>Dashboard</PageTitle>
 
-@foreach (GenreDTO genre in genres)
+@foreach(GenreDTO genre in genres)
 {
-    <FilmChooser genre="genre"/>
+    <h3>@genre.Name</h3>
+
+    @*Här får du göra ett maxresultat på typ 5, sen lägga till paginering. Som kanske rullar ett åt vänster och ett åt höger. Sen antar jag att du får göra div:en till en a-tag så att du kan länka vidare? och ta ID från filen till en ny get.*@
+
+    <FilmChooser films="genre.Films"/>
+
 }
 
 
-<h1>Dashboard</h1>
 
 @code {
     List<GenreDTO> genres { get; set; } = new();
