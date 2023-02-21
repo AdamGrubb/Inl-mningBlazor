@@ -1,9 +1,4 @@
-﻿using HorrorFlux.Common.DTOs;
-using HorrorFlux.Membership.Database.Entities;
-using HorrorFlux.Membership.Database.Services;
-using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace HorrorFlux.Membership.API.Controllers
 {
@@ -19,7 +14,7 @@ namespace HorrorFlux.Membership.API.Controllers
         [HttpGet]
         public async Task<IResult> Get()
         {
-            try //Du får göra om den här try catchen.
+            try
             {
                 _db.Include<FilmGenre>();
                 var filmGenres = await _db.GetRefAsync<FilmGenre, FilmGenreNameDTO>();
@@ -41,19 +36,19 @@ namespace HorrorFlux.Membership.API.Controllers
                 if (filmGenreDTO == null) return Results.BadRequest();
                 var exist = await _db.AnyAsyncReferenceTable<FilmGenre>(fg => fg.FilmId == filmGenreDTO.FilmId && fg.GenreId == filmGenreDTO.GenreId);
                 if (exist) return Results.BadRequest("Connection already exists");
-                var filmGenre = await _db.AddRefAsync<FilmGenre, FilmGenreDTO>(filmGenreDTO); //Ändra och eventuellt lägga till en till Interface för referenstabeller=
+                var filmGenre = await _db.AddRefAsync<FilmGenre, FilmGenreDTO>(filmGenreDTO);
                 var sucess = await _db.SaveChangesAsync();
                 if (sucess == false) return Results.BadRequest();
                 return Results.Created($"/FilmGenres/{filmGenre.FilmId}{filmGenre.GenreId}", filmGenre);
             }
-            catch (Exception ex) //Här borde du göra en catch för ifall den kombinationen redan finns. Eller en if-sats
+            catch (Exception ex)
             {
                 return Results.BadRequest(ex);
             }
         }
-        // DELETE api/<FilmGenresController>/5 //("{id}") Vet inte helt säkert varför man ska ha kvar id här?
+        // DELETE api/<FilmGenresController>/5
         [HttpDelete]
-        public async Task<IResult> Delete([FromQuery] int [] id) //Testa göra en kontroller där man stoppar in 
+        public async Task<IResult> Delete([FromQuery] int [] id)
         {
             try
             {

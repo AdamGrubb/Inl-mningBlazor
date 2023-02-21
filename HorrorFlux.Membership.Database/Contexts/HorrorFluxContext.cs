@@ -21,7 +21,7 @@ namespace HorrorFlux.Membership.Database.Contexts
         {
 
         }
-        protected override void OnModelCreating(ModelBuilder builder) //Kanske ska ha kvar cascading delete?
+        protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
