@@ -20,7 +20,7 @@ public class SimilarFilmsController : ControllerBase
         try
         {
             _db.Include<SimilarFilms>();
-            var filmGenres = await _db.GetRefAsync<SimilarFilms, SimilarFilmsNameDTO>();
+            var filmGenres = await _db.GetRefAsync<SimilarFilms, SimilarFilmsDTO>();
 
             return Results.Ok(filmGenres);
         }

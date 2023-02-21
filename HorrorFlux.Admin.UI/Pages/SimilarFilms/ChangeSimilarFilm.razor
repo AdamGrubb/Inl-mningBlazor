@@ -36,7 +36,7 @@
 </EditForm>
 
 @code {
-    [Parameter] public SimilarFilmsNameDTO Model { get; set; } = new();
+    [Parameter] public SimilarFilmsDTO Model { get; set; } = new();
     [Parameter] public string Page { get; set; } = string.Empty;
     [Parameter] public EventCallback<string> OnChange { get; set; }
     public List<FilmDTO> filmDTO { get; set; } = new();
@@ -50,9 +50,9 @@
         try
         {
             if (Page.Equals(PageType.Create))
-                await adminService.CreateAsync<SimilarFilmsNameDTO>("SimilarFilms", Model);
+                await adminService.CreateAsync<SimilarFilmsDTO>("SimilarFilms", Model);
             else if (Page.Equals(PageType.Delete))
-                await adminService.DeleteAsync<SimilarFilmsNameDTO>($"SimilarFilms?id={Model.ParentFilmId}&id={Model.SimilarFilmId}");
+                await adminService.DeleteAsync<SimilarFilmsDTO>($"SimilarFilms?id={Model.ParentFilmId}&id={Model.SimilarFilmId}");
             await OnChange.InvokeAsync("");
         }
         catch

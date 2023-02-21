@@ -63,13 +63,6 @@ void ConfigureAutoMapper()
 
         cfg.CreateMap<addFilmDTO, Film>();
 
-        cfg.CreateMap<SimilarFilms, SimilarFilmsNameDTO>()
-        .ForMember(dest => dest.ParentFilmTitle, src => src.MapFrom(parentFilm => parentFilm.ParentFilm.Title))
-        .ForMember(dest => dest.SimilarFilmTitle, src => src.MapFrom(parentFilm => parentFilm.SimilarFilm.Title))
-         .ReverseMap()
-        .ForMember(dest => dest.SimilarFilm, src => src.Ignore())
-        .ForMember(dest => dest.ParentFilm, src => src.Ignore());
-
         cfg.CreateMap<FilmGenre, FilmGenreNameDTO>()
         .ForMember(dest => dest.FilmName, src => src.MapFrom(film => film.Film.Title))
         .ForMember(dest => dest.GenreName, src => src.MapFrom(genre => genre.Genre.Name))
@@ -86,8 +79,12 @@ void ConfigureAutoMapper()
         cfg.CreateMap<AddDirector, Director>();
         cfg.CreateMap<EditDirector, Director>();
 
-        cfg.CreateMap<SimilarFilms, ListSimilarFilmsDTO>();
-        cfg.CreateMap<SimilarFilms, SimilarFilmsDTO>().ReverseMap();
+        cfg.CreateMap<SimilarFilms, SimilarFilmsDTO>()
+        .ForMember(dest => dest.ParentFilmTitle, src => src.MapFrom(parentFilm => parentFilm.ParentFilm.Title))
+        .ForMember(dest => dest.SimilarFilmTitle, src => src.MapFrom(parentFilm => parentFilm.SimilarFilm.Title))
+        .ReverseMap()
+        .ForMember(dest => dest.SimilarFilm, src => src.Ignore())
+        .ForMember(dest => dest.ParentFilm, src => src.Ignore());
 
         cfg.CreateMap<Film, previewFilmDTO>();
 

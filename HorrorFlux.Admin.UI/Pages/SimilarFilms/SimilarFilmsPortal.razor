@@ -26,17 +26,17 @@
 <SimilarFilmsIndex OnClick="OnClick" Model="Model"></SimilarFilmsIndex>
 
 @code {
-    List<SimilarFilmsNameDTO> Model { get; set; } = new();
+    List<SimilarFilmsDTO> Model { get; set; } = new();
     string Alert { get; set; } = string.Empty;
     string Navigation { get; set; } = PageType.Index;
-    public SimilarFilmsNameDTO SimilarFilm { get; set; } = new();
+    public SimilarFilmsDTO SimilarFilm { get; set; } = new();
 
 
     protected override async Task OnInitializedAsync()
     {
         Alert = string.Empty;
 
-        Model = await adminService.GetAsync<SimilarFilmsNameDTO>("SimilarFilms");
+        Model = await adminService.GetAsync<SimilarFilmsDTO>("SimilarFilms");
 
 
     }
@@ -49,7 +49,7 @@
     {
         Alert = string.Empty;
     }
-    async Task OnClick(ClickModelReferens<SimilarFilmsNameDTO> model)
+    async Task OnClick(ClickModelReferens<SimilarFilmsDTO> model)
     {
         if (model.PageType.Equals(PageType.Edit) || model.PageType.Equals(PageType.Delete))
             SimilarFilm = model.dto;
@@ -61,7 +61,7 @@
         try
         {
             Alert = alert;
-            Model = await adminService.GetAsync<SimilarFilmsNameDTO>("SimilarFilms");
+            Model = await adminService.GetAsync<SimilarFilmsDTO>("SimilarFilms");
             ChangePageType(PageType.Index);
             SimilarFilm = new();
         }
