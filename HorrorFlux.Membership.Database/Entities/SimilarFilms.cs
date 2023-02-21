@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace HorrorFlux.Membership.Database.Entities;
+﻿namespace HorrorFlux.Membership.Database.Entities;
 
 public class SimilarFilms
 {
