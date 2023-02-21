@@ -72,11 +72,8 @@ void ConfigureAutoMapper()
 
         cfg.CreateMap<editFilmDTO, Film>();
 
-        //cfg.CreateMap<FilmGenre, FilmGenreDTO>().ReverseMap();
-
-        cfg.CreateMap<Director, DirectorNameDTO>();
-
         cfg.CreateMap<AddDirector, Director>();
+
         cfg.CreateMap<EditDirector, Director>();
 
         cfg.CreateMap<SimilarFilms, SimilarFilmsDTO>()
@@ -93,8 +90,6 @@ void ConfigureAutoMapper()
         .ForMember(dest => dest.Title, src => src.MapFrom(similarFilm => similarFilm.SimilarFilm.Title))
         .ForMember(dest => dest.FilmPoster, src => src.MapFrom(similarFilm => similarFilm.SimilarFilm.FilmPoster));
 
-        cfg.CreateMap<Film, SingleFilmDTO>()
-        .ForMember(dest => dest.Films, src => src.MapFrom(entity => entity.SimilarFilms));
     });
     var mapper = config.CreateMapper();
     builder.Services.AddSingleton(mapper);
