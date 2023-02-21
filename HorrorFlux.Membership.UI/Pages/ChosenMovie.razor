@@ -1,16 +1,13 @@
 ﻿@page "/ChosenMovie/{id:int}"
 @inject IMembershipService membershipService;
-@using HorrorFlux.Common.DTOs;
-@using HorrorFlux.Common.Services;
-
 
 <a href="/" type="button" class="btn btn-primary btn-lg">
     <i class="oi oi-arrow-left">
         <span class="vertical-align">Back</span>
     </i>
-</a> @*Här skulle man ju kunna ha en bild som en knapp istället som är en bakåtpil, men funktionen är ju densamma.*@
+</a>
 
-<div class="d-flex text-center" style="margin-bottom:5rem"> @*Den här diven borde ha fast storlek*@
+<div class="d-flex text-center" style="margin-bottom:5rem">
         <div class="d-flex flex-column">
             <h3>@film.Title</h3>
             <img src="@film.FilmPoster" class="FilmPoster" />
@@ -35,10 +32,6 @@
 
     public FilmDTO film { get; set; } = new();
 
-    //protected override async Task OnInitializedAsync()
-    //{
-        
-    //}
     protected override async Task OnParametersSetAsync()
     {
         film = await membershipService.GetFilmAsync(Id);

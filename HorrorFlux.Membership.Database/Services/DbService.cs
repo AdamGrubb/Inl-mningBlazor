@@ -98,7 +98,7 @@ namespace HorrorFlux.Membership.Database.Services
             foreach (var name in propertyNames)
                 _db.Set<TEntity>().Include(name).Load();
         }
-        public async Task<TReferenceEntity> AddRefAsync<TReferenceEntity, TDto>(TDto dto) where TReferenceEntity : class where TDto : class //Gör om den här som i company så att den beror på ett interface också.
+        public async Task<TReferenceEntity> AddRefAsync<TReferenceEntity, TDto>(TDto dto) where TReferenceEntity : class where TDto : class
 
         {
             var refentity = _mapper.Map<TReferenceEntity>(dto);
