@@ -1,12 +1,12 @@
 ﻿<div class="d-flex SelectionRow">
     @foreach (previewFilmDTO film in films)
     {
-        <a href="/ChosenMovie/@film.Id" class="SingleFilm ps-2" style="">
+        <a href="/ChosenMovie/@film.Id" class="SingleFilm ps-2">
             <img src="@film.FilmPoster" class="PictureThumbnail" alt="poster for {@film.Title}">
         </a>
     }
-
 </div>
 @code {
+    public int result { get; set; }
     [Parameter] public List<previewFilmDTO> films { get; set; } = new();
 }

@@ -1,13 +1,14 @@
 ﻿.SingleFilm:hover {
     transform: scale(1.05);
+
 }
 .SelectionRow{
+    margin-top:3rem;
     margin-bottom:5rem;
 }
 .SingleFilm {
-    width: 180px;
-    height: 275px;
-    margin-right: 1rem;
+    width: 11.25rem;
+    height: 17.1875rem;
 }
 .PictureThumbnail {
     width: 100%;
