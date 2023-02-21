@@ -12,7 +12,7 @@ namespace HorrorFlux.Common.DTOs
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public List<previewFilmDTO> Films { get; set; } //Här borde du ändra till preview-films?
+        public List<previewFilmDTO> Films { get; set; }
     }
     public class AddGenreDTO
     {

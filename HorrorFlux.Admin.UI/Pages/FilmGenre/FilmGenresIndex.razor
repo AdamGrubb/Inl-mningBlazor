@@ -10,7 +10,7 @@
     </thead>
     <tbody>
 
-        @foreach (FilmGenreNameDTO dto in Model)
+        @foreach (FilmGenreDTO dto in Model)
         {
             <tr>
                 <td>@dto.FilmName</td>
@@ -18,7 +18,7 @@
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic example">
 @*                        <button type="button" @onclick="@(() => OnClick.InvokeAsync(new ClickModelReferens<FilmGenreNameDTO> (PageType.Edit, dto)))" class="btn btn-warning">Edit</button>*@
-                        <button type="button" @onclick="@(() => OnClick.InvokeAsync(new ClickModelReferens<FilmGenreNameDTO> (PageType.Delete, dto)))" class="btn btn-danger">Delete</button>
+                        <button type="button" @onclick="@(() => OnClick.InvokeAsync(new ClickModelReferens<FilmGenreDTO> (PageType.Delete, dto)))" class="btn btn-danger">Delete</button>
                     </div>
                 </td>
 
@@ -31,6 +31,6 @@
 
 
 @code {
-    [Parameter] public List<FilmGenreNameDTO> Model { get; set; } = new();
-    [Parameter] public EventCallback<ClickModelReferens<FilmGenreNameDTO>> OnClick { get; set; }
+    [Parameter] public List<FilmGenreDTO> Model { get; set; } = new();
+    [Parameter] public EventCallback<ClickModelReferens<FilmGenreDTO>> OnClick { get; set; }
 }

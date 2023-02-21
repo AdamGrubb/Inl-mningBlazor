@@ -26,17 +26,17 @@
 <FilmGenresIndex OnClick="OnClick" Model="Model"></FilmGenresIndex>
 
 @code {
-    List<FilmGenreNameDTO> Model { get; set; } = new();
+    List<FilmGenreDTO> Model { get; set; } = new();
     string Alert { get; set; } = string.Empty;
     string Navigation { get; set; } = PageType.Index;
-    public FilmGenreNameDTO FilmGenre { get; set; } = new();
+    public FilmGenreDTO FilmGenre { get; set; } = new();
 
 
     protected override async Task OnInitializedAsync()
     {
         Alert = string.Empty;
 
-        Model = await adminService.GetAsync<FilmGenreNameDTO>("FilmGenres");
+        Model = await adminService.GetAsync<FilmGenreDTO>("FilmGenres");
 
 
     }
@@ -49,7 +49,7 @@
     {
         Alert = string.Empty;
     }
-    async Task OnClick(ClickModelReferens<FilmGenreNameDTO> model)
+    async Task OnClick(ClickModelReferens<FilmGenreDTO> model)
     {
         if (model.PageType.Equals(PageType.Edit) || model.PageType.Equals(PageType.Delete))
             FilmGenre = model.dto;
@@ -61,7 +61,7 @@
         try
         {
             Alert = alert;
-            Model = await adminService.GetAsync<FilmGenreNameDTO>("FilmGenres");
+            Model = await adminService.GetAsync<FilmGenreDTO>("FilmGenres");
             ChangePageType(PageType.Index);
             FilmGenre = new();
         }

@@ -17,7 +17,7 @@ namespace HorrorFlux.Membership.API.Controllers
             try
             {
                 _db.Include<FilmGenre>();
-                var filmGenres = await _db.GetRefAsync<FilmGenre, FilmGenreNameDTO>();
+                var filmGenres = await _db.GetRefAsync<FilmGenre, FilmGenreDTO>();
 
                 return Results.Ok(filmGenres);
             }

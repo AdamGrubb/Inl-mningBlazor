@@ -33,7 +33,7 @@
 </EditForm>
 
 @code {
-    [Parameter] public FilmGenreNameDTO Model { get; set; } = new();
+    [Parameter] public FilmGenreDTO Model { get; set; } = new();
     [Parameter] public string Page { get; set; } = string.Empty;
     [Parameter] public EventCallback<string> OnChange { get; set; }
     public List<FilmDTO> filmDTO { get; set; } = new();
@@ -49,9 +49,9 @@
         try
         {
             if (Page.Equals(PageType.Create))
-                await adminService.CreateAsync<FilmGenreNameDTO>("FilmGenres", Model);
+                await adminService.CreateAsync<FilmGenreDTO>("FilmGenres", Model);
             else if (Page.Equals(PageType.Delete))
-                await adminService.DeleteAsync<FilmGenreNameDTO>($"FilmGenres?id={Model.FilmId}&id={Model.GenreId}");
+                await adminService.DeleteAsync<FilmGenreDTO>($"FilmGenres?id={Model.FilmId}&id={Model.GenreId}");
 
             await OnChange.InvokeAsync("");
         }

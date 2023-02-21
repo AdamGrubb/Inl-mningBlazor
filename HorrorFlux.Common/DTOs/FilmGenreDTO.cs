@@ -13,14 +13,17 @@ namespace HorrorFlux.Common.DTOs
         public int FilmId { get; set; }
 
         public int GenreId { get; set; }
-    }
-    public class FilmGenreNameDTO
-    {
-        public int FilmId { get; set; }
 
-        public int GenreId { get; set; }
-
-        public string FilmName { get; set; }
-        public string GenreName { get; set; }
+        public string? FilmName { get; set; }
+        public string? GenreName { get; set; }
     }
+    //public class FilmGenreNameDTO
+    //{
+    //    public int FilmId { get; set; }
+
+    //    public int GenreId { get; set; }
+
+    //    public string FilmName { get; set; }
+    //    public string GenreName { get; set; }
+    //}
 }

@@ -63,7 +63,7 @@ void ConfigureAutoMapper()
 
         cfg.CreateMap<addFilmDTO, Film>();
 
-        cfg.CreateMap<FilmGenre, FilmGenreNameDTO>()
+        cfg.CreateMap<FilmGenre, FilmGenreDTO>()
         .ForMember(dest => dest.FilmName, src => src.MapFrom(film => film.Film.Title))
         .ForMember(dest => dest.GenreName, src => src.MapFrom(genre => genre.Genre.Name))
         .ReverseMap()
@@ -72,7 +72,7 @@ void ConfigureAutoMapper()
 
         cfg.CreateMap<editFilmDTO, Film>();
 
-        cfg.CreateMap<FilmGenre, FilmGenreDTO>().ReverseMap();
+        //cfg.CreateMap<FilmGenre, FilmGenreDTO>().ReverseMap();
 
         cfg.CreateMap<Director, DirectorNameDTO>();
 
