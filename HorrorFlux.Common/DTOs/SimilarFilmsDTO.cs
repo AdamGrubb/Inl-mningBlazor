@@ -15,7 +15,6 @@ namespace HorrorFlux.Common.DTOs
     }
     public class ListSimilarFilmsDTO
     {
-        //public previewFilmDTO ParentFilm { get; set; }
 
         public previewFilmDTO SimilarFilm { get; set; }
     }
