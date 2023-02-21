@@ -11,12 +11,21 @@
     </i>
 </a> @*Här skulle man ju kunna ha en bild som en knapp istället som är en bakåtpil, men funktionen är ju densamma.*@
 
-<div class="d-flex">
-    <h3>@film.Title</h3>
-    <img src="@film.FilmPoster"/>
+<div class="d-flex text-center" style="margin-bottom:5rem"> @*Den här diven borde ha fast storlek*@
+        <div class="d-flex flex-column">
+            <h3>@film.Title</h3>
+            <img src="@film.FilmPoster" class="FilmPoster" />
+        </div>
+        <div class="d-flex flex-column text-center" style="margin-left:50px; width:300px; height:500px; ">
+            <label style="margin-top:100px; margin-bottom: 50px; font-size:x-large;">
+                @film.Description
+            </label>
+        <h5 style="margin-top:35px;">Director: @film.DirectorName</h5>
+        <h5 style="margin-top:10px;">Release: @film.Release.ToShortDateString()</h5>
+            <a href="/VideoPage/@Id" class="btn-primary">Play</a>
+        </div>
 </div>
 
-<a href="/VideoPage/@Id" class="btn-primary">Play</a>
 
 
 
