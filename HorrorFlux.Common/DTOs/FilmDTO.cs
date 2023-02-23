@@ -11,6 +11,7 @@ public class FilmDTO
     public bool Free { get; set; }
     public int DirectorId { get; set; }
     public  string DirectorName { get; set; }
+    public List<string> Genre { get; set; } = new();
     public List<previewFilmDTO> SimilarFilms { get; set; } = new();
 }
 public class previewFilmDTO

@@ -15,9 +15,14 @@
             <label style="margin-top:100px; margin-bottom: 50px; font-size:x-large;">
                 @film.Description
             </label>
-        <h5 style="margin-top:35px;">Director: @film.DirectorName</h5>
-        <h5 style="margin-top:10px;">Release: @film.Release.ToShortDateString()</h5>
-            <a href="/VideoPage/@Id" class="btn-primary">Play</a>
+        <h5 style="margin-top:35px">Director: @film.DirectorName</h5>
+        <h5 style="margin-top:10px">Release: @film.Release.ToShortDateString()</h5>
+        <h5 style="margin-top:10px">Genres:</h5>
+            @foreach (string genre in film.Genre)
+            {
+                <h6>@genre</h6>
+            }
+        <a href="/VideoPage/@Id" class="btn-primary">Play</a>
         </div>
 </div>
 
@@ -33,7 +38,4 @@
     {
         film = await membershipService.GetFilmAsync(Id);
     }
-
-
-
 }
