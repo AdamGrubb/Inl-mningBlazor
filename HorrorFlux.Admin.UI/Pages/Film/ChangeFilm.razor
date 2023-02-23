@@ -71,7 +71,7 @@
             else if (Page.Equals(PageType.Edit))
                 await adminService.EditAsync<FilmDTO>($"Films/{Model.Id}", Model);
             else if (Page.Equals(PageType.Delete))
-                await adminService.DeleteAsync<FilmDTO>($"Films/{Model.Id}");
+                await DeleteReferenseTables(Model.Id, Model);
 
             await OnChange.InvokeAsync("");
         }
@@ -79,5 +79,14 @@
         {
             await OnChange.InvokeAsync("Couldn't create/edit/delete the course.");
         }
+    }
+    public async Task DeleteReferenseTables(int id, FilmDTO film)
+    {
+        var deleteSimilarFilms = await adminService.GetAsync<SimilarFilmsDTO>("SimilarFilms");
+        deleteSimilarFilms.Where(similarFilm => similarFilm.ParentFilmId == id || similarFilm.SimilarFilmId == id).ToList().ForEach(async film => await adminService.DeleteAsync<SimilarFilmsDTO>($"SimilarFilms?id={film.ParentFilmId}&id={film.SimilarFilmId}"));
+        var deleteFilmGenre = await adminService.GetAsync<FilmGenreDTO>("FilmGenres");
+        deleteFilmGenre.Where(similarFilm => similarFilm.FilmId == id).ToList().ForEach(async film => await adminService.DeleteAsync<FilmGenreDTO>($"FilmGenres?id={film.FilmId}&id={film.GenreId}"));
+        await adminService.DeleteAsync<FilmDTO>($"Films/{id}");
+
     }
 }

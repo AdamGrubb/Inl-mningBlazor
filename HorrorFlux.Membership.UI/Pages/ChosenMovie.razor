@@ -25,7 +25,10 @@
         <a href="/VideoPage/@Id" class="btn-primary">Play</a>
         </div>
 </div>
-<h4>Similar films</h4>
+@if (film.SimilarFilms.Count > 0)
+{
+    <h4 style="margin:3.6rem">Similar films</h4>
+}
 <FilmChooser films="film.SimilarFilms" />
 
 @code {
