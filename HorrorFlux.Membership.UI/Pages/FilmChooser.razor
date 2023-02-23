@@ -1,12 +1,52 @@
 ﻿<div class="d-flex SelectionRow">
-    @foreach (previewFilmDTO film in films)
+    <button class="page-link Page-button" @onclick="Subtract" aria-label="Previous"> @*Här får du göra en standard-size så den ser bra ut samt göra marginaler så att filmerna inte förstoras över pilen*@
+        <span aria-hidden="true">&laquo;</span>
+      </button>
+
+    @foreach (previewFilmDTO film in showing)
     {
-        <a href="/ChosenMovie/@film.Id" class="SingleFilm ps-2">
+        <a href="/ChosenMovie/@film.Id" class="SingleFilm">
             <img src="@film.FilmPoster" class="PictureThumbnail" alt="poster for {@film.Title}">
         </a>
     }
+    <button class="page-link Page-button" @onclick="Add" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+    </button>
+
 </div>
 @code {
     public int result { get; set; }
-    [Parameter] public List<previewFilmDTO> films { get; set; } = new();
+    [Parameter] public List<previewFilmDTO> films { get; set; }
+    public List<previewFilmDTO> showing { get; set; } = new();
+
+    protected override void OnParametersSet()
+    {
+        result = 0;
+        showing = new();
+        Pagination();
+    }
+
+    public void Subtract()
+    {
+        if (result > 0)
+        { 
+            result--;
+            Pagination();
+        }
+
+    }
+    public void Add()
+    {
+        if (result < films.Count() - 5)
+        {
+            result++;
+            Pagination();
+        }
+
+    }
+    private void Pagination()
+    {
+        if (films.Count() < 5) showing.AddRange(films);
+        else showing = films.GetRange(result, 5).ToList();         
+    }
 }

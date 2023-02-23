@@ -20,15 +20,20 @@
             <a href="/VideoPage/@Id" class="btn-primary">Play</a>
         </div>
 </div>
+
     <FilmChooser films="film.SimilarFilms" />
+
 @code {
     [Parameter] public int Id { get; set; }
 
     public FilmDTO film { get; set; } = new();
 
+
     protected override async Task OnParametersSetAsync()
     {
         film = await membershipService.GetFilmAsync(Id);
     }
+
+
 
 }
