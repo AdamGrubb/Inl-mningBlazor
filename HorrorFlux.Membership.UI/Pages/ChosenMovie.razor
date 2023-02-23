@@ -6,7 +6,7 @@
         <span class="vertical-align">Back</span>
     </i>
 </a>
-<div class="d-flex text-center" style="margin-bottom:5rem">
+<div class="d-flex text-center" style="margin-bottom:3rem">
         <div class="d-flex flex-column">
             <h3>@film.Title</h3>
             <img src="@film.FilmPoster" class="FilmPoster" />
@@ -25,8 +25,8 @@
         <a href="/VideoPage/@Id" class="btn-primary">Play</a>
         </div>
 </div>
-
-    <FilmChooser films="film.SimilarFilms" />
+<h4>Similar films</h4>
+<FilmChooser films="film.SimilarFilms" />
 
 @code {
     [Parameter] public int Id { get; set; }
